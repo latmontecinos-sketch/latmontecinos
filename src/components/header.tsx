@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { nav, ui } from "@/content/site";
+import { nav, profile, ui } from "@/content/site";
 import { useSite } from "@/components/providers";
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "@/components/icons";
 
@@ -34,9 +34,14 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-5 sm:px-8">
         <a
           href="#top"
+          aria-label={profile.name}
           className="font-display text-sm font-bold tracking-tight text-text"
         >
-          A<span className="text-accent">.</span>Tintaya
+          {/* El apellido completo solo cuando hay ancho: en movil compite con
+              los tres controles y termina partiendose en dos lineas. */}
+          <span aria-hidden>
+            Alejandro Tintaya<span className="hidden sm:inline"> Montecinos</span>
+          </span>
         </a>
 
         <nav aria-label={t(ui.menuLabel)} className="hidden md:block">

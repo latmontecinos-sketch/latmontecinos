@@ -6,8 +6,10 @@ import {
   community,
   profile,
   projects,
+  proof,
   socials,
-  stack,
+  stackDaily,
+  stackLearning,
   ui,
 } from "@/content/site";
 import { useSite } from "@/components/providers";
@@ -86,7 +88,53 @@ export function Hero() {
           </a>
         ))}
       </div>
+
+      <ProofBar />
     </section>
+  );
+}
+
+function ProofBar() {
+  const { t } = useSite();
+
+  return (
+    <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-7 border-t border-border pt-8 sm:grid-cols-4">
+      {proof.map((item) => {
+        const value = (
+          <dt className="font-display text-2xl font-bold tracking-tight text-text transition-colors sm:text-3xl">
+            {t(item.value)}
+          </dt>
+        );
+        const label = (
+          <dd className="mt-1 text-xs leading-snug text-muted">
+            {t(item.label)}
+          </dd>
+        );
+
+        // Una cifra comprobable en un clic pesa mucho mas que una que hay que
+        // creer, asi que cada dato con fuente publica va enlazado a su prueba.
+        return item.href ? (
+          <div key={t(item.label)} className="group">
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <span className="block group-hover:text-accent [&>dt]:group-hover:text-accent">
+                {value}
+                {label}
+              </span>
+            </a>
+          </div>
+        ) : (
+          <div key={t(item.label)}>
+            {value}
+            {label}
+          </div>
+        );
+      })}
+    </dl>
   );
 }
 
@@ -174,7 +222,7 @@ export function Community() {
       <ul className="space-y-6">
         {community.map((item) => (
           <li
-            key={item.org + t(item.title)}
+            key={t(item.org) + t(item.title)}
             className="grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-6"
           >
             <p className="text-sm text-muted">{t(item.period)}</p>
@@ -211,10 +259,13 @@ export function Stack() {
 
   return (
     <Section id="stack" title={t(ui.stackTitle)}>
-      <dl className="grid gap-6 sm:grid-cols-2">
-        {stack.map((group) => (
+      <p className="text-sm font-medium text-text">{t(ui.stackDailyLabel)}</p>
+      <dl className="mt-4 grid gap-6 sm:grid-cols-2">
+        {stackDaily.map((group) => (
           <div key={group.items.join()}>
-            <dt className="text-sm font-medium text-text">{t(group.group)}</dt>
+            <dt className="text-xs uppercase tracking-wider text-muted">
+              {t(group.group)}
+            </dt>
             <dd className="mt-2.5 flex flex-wrap gap-1.5">
               {group.items.map((item) => (
                 <span
@@ -228,6 +279,20 @@ export function Stack() {
           </div>
         ))}
       </dl>
+
+      <p className="mt-9 text-sm font-medium text-text">
+        {t(ui.stackLearningLabel)}
+      </p>
+      <div className="mt-3 flex flex-wrap gap-1.5">
+        {stackLearning.map((item) => (
+          <span
+            key={item}
+            className="rounded-md border border-dashed border-accent/60 bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
     </Section>
   );
 }

@@ -44,6 +44,33 @@ export const socials = {
   telegramCommunity: "https://t.me/+SpY76r8P0s9BhgtO",
 };
 
+/**
+ * Cifras duras del hero. Cada una lleva a su prueba: una afirmacion que no se
+ * puede verificar en un clic pesa mucho menos que una que si.
+ */
+export const proof: { value: T; label: T; href?: string }[] = [
+  {
+    // el separador de miles cambia con el idioma: 4.650 en es, 4,650 en en
+    value: { es: "4.650", en: "4,650" },
+    label: { es: "suscriptores en YouTube", en: "YouTube subscribers" },
+    href: "https://www.youtube.com/@AlexCriptomonedas",
+  },
+  {
+    value: both("262"),
+    label: { es: "videos publicados", en: "videos published" },
+    href: "https://www.youtube.com/@AlexCriptomonedas",
+  },
+  {
+    value: { es: "3 años", en: "3 years" },
+    label: { es: "core team en Ethereum Bolivia", en: "on the Ethereum Bolivia core team" },
+  },
+  {
+    value: { es: "6ª ed.", en: "6th ed." },
+    label: { es: "expositor en Cripto Conferencia", en: "speaker at Cripto Conferencia" },
+    href: "https://criptoconferencia.net",
+  },
+];
+
 export const nav: { id: string; label: T }[] = [
   { id: "about", label: { es: "Sobre mí", en: "About" } },
   { id: "projects", label: { es: "Proyectos", en: "Projects" } },
@@ -154,7 +181,12 @@ export const community: CommunityItem[] = [
   },
 ];
 
-export const stack: { group: T; items: string[] }[] = [
+/**
+ * Dos niveles a proposito. Meter "Stellar" entre los chips de uso diario
+ * borraria justo lo que diferencia el perfil: saber donde termina lo que
+ * dominas y donde empieza lo que estas aprendiendo.
+ */
+export const stackDaily: { group: T; items: string[] }[] = [
   {
     group: { es: "Lenguajes y frameworks", en: "Languages & frameworks" },
     items: ["TypeScript", "React", "Next.js", "Node", "Tailwind CSS"],
@@ -165,7 +197,7 @@ export const stack: { group: T; items: string[] }[] = [
   },
   {
     group: both("Web3"),
-    items: ["EVM tooling", "Bots", "DeFi", "Stellar", "Wallets"],
+    items: ["EVM tooling", "Bots", "DeFi", "Wallets"],
   },
   {
     group: both("Infra"),
@@ -173,12 +205,16 @@ export const stack: { group: T; items: string[] }[] = [
   },
 ];
 
+export const stackLearning: string[] = ["Stellar", "Soroban"];
+
 export const ui = {
   skipToContent: { es: "Ir al contenido", en: "Skip to content" } as T,
   aboutTitle: { es: "Sobre mí", en: "About" } as T,
   projectsTitle: { es: "Proyectos", en: "Projects" } as T,
   communityTitle: { es: "Comunidad y charlas", en: "Community & talks" } as T,
   stackTitle: both("Stack"),
+  stackDailyLabel: { es: "Uso a diario", en: "Daily driver" } as T,
+  stackLearningLabel: { es: "Aprendiendo ahora", en: "Learning right now" } as T,
   contactTitle: { es: "Hablemos", en: "Let's talk" } as T,
   contactBody: {
     es: "Estoy abierto a colaborar en proyectos Web3, bounties y programas de builders. La forma más rápida de llegarme es por correo.",

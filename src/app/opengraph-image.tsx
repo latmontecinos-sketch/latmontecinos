@@ -1,10 +1,13 @@
 import { ImageResponse } from "next/og";
-import { profile } from "@/content/site";
+import { profile, proof } from "@/content/site";
 
 export const alt = `${profile.name} — Web3 Builder & Developer`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// La preview reproduce el hero real del sitio — mismos colores, misma
+// jerarquia, mismas cifras — para que el enlace compartido muestre lo que
+// la persona va a encontrar al entrar, no una tarjeta generica.
 export default function OpengraphImage() {
   return new ImageResponse(
     (
@@ -14,45 +17,65 @@ export default function OpengraphImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
           background: "#0b0a08",
-          padding: "72px",
+          padding: "64px 72px",
+          justifyContent: "space-between",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            fontSize: 24,
-            letterSpacing: 6,
-            color: "#e8b84b",
-            textTransform: "uppercase",
-          }}
-        >
-          Web3 Builder &amp; Developer
-        </div>
-
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
               display: "flex",
-              fontSize: 88,
+              fontSize: 22,
+              letterSpacing: 5,
+              color: "#e8b84b",
               fontWeight: 700,
-              color: "#f3f0e8",
-              lineHeight: 1.05,
             }}
           >
-            Alejandro Tintaya
+            WEB3 BUILDER &amp; DEVELOPER
           </div>
+
           <div
             style={{
               display: "flex",
-              fontSize: 88,
-              fontWeight: 700,
-              color: "#f3f0e8",
-              lineHeight: 1.05,
+              flexDirection: "column",
+              marginTop: 22,
             }}
           >
-            Montecinos
+            <div
+              style={{
+                display: "flex",
+                fontSize: 76,
+                fontWeight: 700,
+                color: "#f3f0e8",
+                lineHeight: 1.06,
+              }}
+            >
+              Alejandro Tintaya
+            </div>
+            <div
+              style={{
+                display: "flex",
+                fontSize: 76,
+                fontWeight: 700,
+                color: "#f3f0e8",
+                lineHeight: 1.06,
+              }}
+            >
+              Montecinos
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              fontSize: 27,
+              color: "#9c9385",
+              marginTop: 24,
+              maxWidth: 900,
+            }}
+          >
+            {profile.tagline.es}
           </div>
         </div>
 
@@ -60,14 +83,32 @@ export default function OpengraphImage() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            fontSize: 26,
-            color: "#9c9385",
             borderTop: "2px solid #2a251e",
-            paddingTop: "28px",
+            paddingTop: 26,
           }}
         >
-          <div style={{ display: "flex" }}>La Paz, Bolivia</div>
-          <div style={{ display: "flex" }}>latmontecinos.vercel.app</div>
+          {proof.map((item) => (
+            <div
+              key={item.label.es}
+              style={{ display: "flex", flexDirection: "column", maxWidth: 230 }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: 34,
+                  fontWeight: 700,
+                  color: "#e8b84b",
+                }}
+              >
+                {item.value.es}
+              </div>
+              <div
+                style={{ display: "flex", fontSize: 17, color: "#9c9385", marginTop: 4 }}
+              >
+                {item.label.es}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     ),
