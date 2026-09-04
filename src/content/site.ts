@@ -31,12 +31,9 @@ export const profile = {
   name: "Alejandro Tintaya Montecinos",
   role: both("Web2 & Web3 Developer"),
   location: both("La Paz, Bolivia"),
-  // Sin la cifra (ya esta en la barra de prueba) y sin mezclar el canal con
-  // las herramientas: los videos son de airdrops, DeFi e inversion, no
-  // tutoriales de estas herramientas.
   tagline: {
-    es: "Construyo herramientas cripto en TypeScript para mí y para mi comunidad.",
-    en: "I build crypto tools in TypeScript for myself and for my community.",
+    es: "Desarrollo productos web en TypeScript, de la interfaz a la base de datos. Web2 y Web3.",
+    en: "I build web products in TypeScript, from the interface to the database. Web2 and Web3.",
   } as T,
   email: "latmontecinos@gmail.com",
 };
@@ -49,7 +46,6 @@ export const socials = {
   youtube: "https://www.youtube.com/@AlexCriptomonedas",
   telegramChannel: "https://t.me/AlexCriptoAnuncios",
   telegramCommunity: "https://t.me/+SpY76r8P0s9BhgtO",
-  telegramBot: "https://t.me/Aex_Gold_Silver_bot",
 };
 
 /**
@@ -88,18 +84,18 @@ export const nav: { id: string; label: T }[] = [
 ];
 
 export const about: T = {
-  es: `Llevo años en cripto, la mayor parte como usuario metido en EVM todos los días: DeFi, airdrops, trading. Hace unos meses empecé a construir mis propias herramientas — screeners de arbitraje, bots — casi siempre en comunidad, aprendiendo con otros.
+  es: `Construyo productos web de punta a punta: interfaz con React y Next.js, backend con Node y una base de datos detrás. Tomo trabajos de Web2 y de Web3 — la base es la misma, con o sin blockchain de por medio.
 
-Tomo trabajos de Web2 y de Web3: la base es la misma — TypeScript, React, Node y una base de datos — con o sin blockchain de por medio.
+Mi terreno fuerte es cripto. Llevo años ahí, la mayor parte como usuario metido en EVM todos los días: DeFi, airdrops, trading. Hace unos meses empecé a construir mis propias herramientas — screeners, bots y contratos — casi siempre en comunidad.
 
 Construyo con vibe coding: me apoyo en IA para escribir el código. Lo que pongo yo es el criterio — años operando y moviéndome en comunidad me dicen qué hace falta de verdad, y por eso lo que sale termina siendo útil y enfocado en mi trabajo, no una demo más.
 
 Stellar es nuevo para mí y lo estoy aprendiendo de la misma forma: construyendo.
 
 Soy parte del core team de Ethereum Bolivia desde 2023, doy talleres sobre finanzas descentralizadas y charlas universitarias sobre DeFi e IA aplicada.`,
-  en: `Years in crypto, mostly as a heavy day-to-day EVM user: DeFi, airdrops, trading. A few months ago I started building my own tools — arbitrage screeners, bots — mostly in community, learning alongside others.
+  en: `I build web products end to end: the interface with React and Next.js, the backend with Node and a database behind it. I take on both Web2 and Web3 work — the foundation is the same, with or without a chain in the middle.
 
-I take on both Web2 and Web3 work: the foundation is the same — TypeScript, React, Node and a database — with or without a blockchain in the middle.
+Crypto is where I go deep. Years in it, mostly as a heavy day-to-day EVM user: DeFi, airdrops, trading. A few months ago I started building my own tools — screeners, bots and contracts — mostly in community.
 
 I build with vibe coding: I lean on AI to write the code. What I bring is the judgment — years trading and moving in community tell me what is actually needed, which is why what comes out is useful and aimed at my own work rather than one more demo.
 
@@ -243,36 +239,15 @@ export const community: CommunityItem[] = [
   },
 ];
 
-/**
- * Dos niveles a proposito. Meter "Stellar" entre los chips de uso diario
- * borraria justo lo que diferencia el perfil: saber donde termina lo que
- * dominas y donde empieza lo que estas aprendiendo.
- */
-export const stackDaily: { group: T; items: string[] }[] = [
-  {
-    group: { es: "Lenguajes y frameworks", en: "Languages & frameworks" },
-    items: ["TypeScript", "React", "Next.js", "Node", "Tailwind CSS"],
-  },
-  {
-    group: { es: "Datos", en: "Data" },
-    items: ["PostgreSQL", "libSQL / Turso", "SQL"],
-  },
-  {
-    group: both("Web3"),
-    items: ["EVM tooling", "Bots", "DeFi", "Wallets"],
-  },
-  {
-    group: both("Infra"),
-    items: ["Vercel", "Git", "GitHub"],
-  },
-];
-
 export const stackLearning: string[] = ["Stellar", "Soroban"];
 
 export const howIWork: T[] = [
   { es: "Vibe coding — IA para escribir el código", en: "Vibe coding — AI to write the code" },
   { es: "Criterio propio para decidir qué construir", en: "My own judgment on what to build" },
-  { es: "Iteración sobre uso real, no sobre demos", en: "Iteration on real use, not on demos" },
+  {
+    es: "Demo cuando alcanza con una demo; producción cuando no",
+    en: "A demo when a demo is enough; production when it isn't",
+  },
 ];
 
 export const softSkills: T[] = [
@@ -290,7 +265,6 @@ export const ui = {
   projectsTitle: { es: "Proyectos", en: "Projects" } as T,
   communityTitle: { es: "Comunidad y charlas", en: "Community & talks" } as T,
   stackTitle: both("Stack"),
-  stackDailyLabel: { es: "Uso a diario", en: "Daily driver" } as T,
   techTitle: { es: "Habilidades técnicas", en: "Technical skills" } as T,
   howIWorkLabel: { es: "Cómo trabajo", en: "How I work" } as T,
   stackLearningLabel: { es: "Aprendiendo ahora", en: "Learning right now" } as T,
@@ -299,8 +273,8 @@ export const ui = {
   caseStudyClose: { es: "Ocultar el caso", en: "Hide the case" } as T,
   contactTitle: { es: "Hablemos", en: "Let's talk" } as T,
   contactBody: {
-    es: "Estoy abierto a colaborar en proyectos Web3, bounties y programas de builders. La forma más rápida de llegarme es por correo.",
-    en: "I'm open to collaborating on Web3 projects, bounties and builder programs. Email is the fastest way to reach me.",
+    es: "Estoy disponible para proyectos Web2 y Web3, colaboraciones, bounties y programas de builders. La forma más rápida de llegarme es por correo.",
+    en: "I'm available for Web2 and Web3 projects, collaborations, bounties and builder programs. Email is the fastest way to reach me.",
   } as T,
   themeLabel: { es: "Cambiar tema", en: "Toggle theme" } as T,
   langLabel: { es: "Cambiar idioma", en: "Switch language" } as T,

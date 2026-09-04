@@ -2,11 +2,14 @@ import {
   siGit,
   siGithub,
   siEthereum,
+  siEthers,
   siJavascript,
   siNextdotjs,
   siNodedotjs,
   siPostgresql,
   siReact,
+  siOpenzeppelin,
+  siSolidity,
   siStellar,
   siSupabase,
   siTailwindcss,
@@ -67,8 +70,15 @@ export const techGroups: { title: T; note: T; items: Tech[] }[] = [
   },
   {
     title: { es: "Web3", en: "Web3" },
-    note: { es: "EVM a diario, Stellar en curso", en: "EVM daily, Stellar in progress" },
-    items: [icon(siEthereum, "EVM", THEMED), icon(siStellar)],
+    note: { es: "Contratos, bots y wallets sobre EVM", en: "Contracts, bots and wallets on EVM" },
+    items: [
+      icon(siEthereum, "EVM", THEMED),
+      // #363636 y #2535A0 sobre la ficha oscura quedan por debajo de 2:1
+      icon(siSolidity, "Solidity", THEMED),
+      icon(siEthers, "ethers.js", THEMED),
+      icon(siOpenzeppelin, "OpenZeppelin"),
+      icon(siStellar),
+    ],
   },
   {
     title: { es: "Herramientas", en: "Tooling" },

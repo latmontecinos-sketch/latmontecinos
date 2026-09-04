@@ -19,6 +19,7 @@ import {
 import { useSite } from "@/components/providers";
 import { Reveal } from "@/components/reveal";
 import { techGroups } from "@/content/tech";
+import { useActiveSection } from "@/components/use-active-section";
 import {
   ArrowIcon,
   GitHubIcon,
@@ -63,8 +64,11 @@ const socialLinks = [
   { href: socials.telegramChannel, label: "Telegram", Icon: TelegramIcon },
 ];
 
+const NAV_IDS = nav.map((item) => item.id);
+
 export function Identity() {
   const { t } = useSite();
+  const active = useActiveSection(NAV_IDS);
 
   return (
     <section id="top" className="pt-14 sm:pt-16 lg:pt-0">
@@ -101,23 +105,33 @@ export function Identity() {
       <Reveal delay={200} className="mt-9 hidden lg:block">
         <nav aria-label={t(ui.menuLabel)}>
           <ul className="space-y-1">
-            {nav.map((item, i) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className="group flex items-center gap-3 py-1.5 font-mono text-xs uppercase tracking-[0.14em] text-muted transition-colors hover:text-text"
-                >
-                  <span
-                    aria-hidden
-                    className="h-px w-6 bg-border transition-all group-hover:w-10 group-hover:bg-accent"
-                  />
-                  <span className="text-accent/70">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {t(item.label)}
-                </a>
-              </li>
-            ))}
+            {nav.map((item, i) => {
+              const current = active === item.id;
+              return (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    aria-current={current ? "true" : undefined}
+                    className={`group flex items-center gap-3 py-1.5 font-mono text-xs uppercase tracking-[0.14em] transition-colors ${
+                      current ? "text-text" : "text-muted hover:text-text"
+                    }`}
+                  >
+                    <span
+                      aria-hidden
+                      className={`h-px transition-all ${
+                        current
+                          ? "w-10 bg-accent"
+                          : "w-6 bg-border group-hover:w-10 group-hover:bg-accent"
+                      }`}
+                    />
+                    <span className="text-accent/70">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {t(item.label)}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </Reveal>

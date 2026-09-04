@@ -1,4 +1,5 @@
 import { Header } from "@/components/header";
+import { LanguageHint } from "@/components/language-hint";
 import {
   About,
   Community,
@@ -13,6 +14,7 @@ import {
 export default function Home() {
   return (
     <>
+      <LanguageHint />
       <Header />
       {/*
         En escritorio la identidad se va a una columna fija a la izquierda y el
