@@ -23,13 +23,15 @@ const display = Space_Grotesk({
   display: "swap",
 });
 
+const pageTitle = `${profile.name} — ${profile.role.es}`;
+
 const description =
   "Web3 builder y developer en La Paz, Bolivia. Herramientas cripto en TypeScript, core team de Ethereum Bolivia y creador de Alex Criptomonedas.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://latmontecinos.vercel.app"),
   title: {
-    default: `${profile.name} — Web3 Builder & Developer`,
+    default: pageTitle,
     template: `%s — ${profile.name}`,
   },
   description,
@@ -48,14 +50,14 @@ export const metadata: Metadata = {
     locale: "es_BO",
     alternateLocale: "en_US",
     url: "/",
-    title: `${profile.name} — Web3 Builder & Developer`,
+    title: pageTitle,
     description,
     siteName: profile.name,
   },
   twitter: {
     card: "summary_large_image",
     creator: "@AlexCriptoPro",
-    title: `${profile.name} — Web3 Builder & Developer`,
+    title: pageTitle,
     description,
   },
   alternates: { canonical: "/" },

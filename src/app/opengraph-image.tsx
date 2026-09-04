@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { profile, proof } from "@/content/site";
 
-export const alt = `${profile.name} — Web3 Builder & Developer`;
+export const alt = `${profile.name} — ${profile.role.es}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -32,7 +32,7 @@ export default function OpengraphImage() {
               fontWeight: 700,
             }}
           >
-            WEB3 BUILDER &amp; DEVELOPER
+            {profile.role.es.toUpperCase()}
           </div>
 
           <div
