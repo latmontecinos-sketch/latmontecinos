@@ -80,7 +80,7 @@ export function Hero() {
             rel="noopener noreferrer"
             aria-label={label}
             title={label}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition-colors hover:border-accent hover:text-accent"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface text-muted transition-colors hover:border-accent hover:text-accent"
           >
             <Icon />
           </a>
@@ -115,7 +115,7 @@ export function Projects() {
         {projects.map((project) => (
           <li
             key={project.name}
-            className="flex flex-col rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/60"
+            className="flex flex-col rounded-xl border border-border bg-surface p-5 transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-accent/60"
           >
             <div className="flex items-center gap-2.5">
               <h3 className="font-display text-lg font-semibold text-text">
