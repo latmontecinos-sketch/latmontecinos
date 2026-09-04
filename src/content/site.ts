@@ -218,6 +218,15 @@ export const stackDaily: { group: T; items: string[] }[] = [
 
 export const stackLearning: string[] = ["Stellar", "Soroban"];
 
+export const softSkills: T[] = [
+  { es: "Comunicación efectiva", en: "Effective communication" },
+  { es: "Trabajo en equipo", en: "Teamwork" },
+  { es: "Resolución de problemas", en: "Problem solving" },
+  { es: "Adaptabilidad", en: "Adaptability" },
+  { es: "Pensamiento crítico", en: "Critical thinking" },
+  { es: "Integridad", en: "Integrity" },
+];
+
 export const ui = {
   skipToContent: { es: "Ir al contenido", en: "Skip to content" } as T,
   aboutTitle: { es: "Sobre mí", en: "About" } as T,
@@ -226,6 +235,7 @@ export const ui = {
   stackTitle: both("Stack"),
   stackDailyLabel: { es: "Uso a diario", en: "Daily driver" } as T,
   stackLearningLabel: { es: "Aprendiendo ahora", en: "Learning right now" } as T,
+  softSkillsLabel: { es: "Habilidades blandas", en: "Soft skills" } as T,
   contactTitle: { es: "Hablemos", en: "Let's talk" } as T,
   contactBody: {
     es: "Estoy abierto a colaborar en proyectos Web3, bounties y programas de builders. La forma más rápida de llegarme es por correo.",

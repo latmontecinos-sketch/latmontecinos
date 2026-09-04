@@ -12,9 +12,11 @@ import {
   socials,
   stackDaily,
   stackLearning,
+  softSkills,
   ui,
 } from "@/content/site";
 import { useSite } from "@/components/providers";
+import { Reveal } from "@/components/reveal";
 import {
   ArrowIcon,
   GitHubIcon,
@@ -36,10 +38,14 @@ function Section({
 }) {
   return (
     <section id={id} className="scroll-mt-24 border-t border-border py-14 sm:py-20">
-      <h2 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-        {title}
-      </h2>
-      <div className="mt-7">{children}</div>
+      <Reveal>
+        <h2 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+          {title}
+        </h2>
+      </Reveal>
+      <Reveal delay={90} className="mt-7">
+        {children}
+      </Reveal>
     </section>
   );
 }
@@ -57,26 +63,32 @@ export function Hero() {
 
   return (
     <section id="top" className="pb-14 pt-16 sm:pb-20 sm:pt-24">
-      <Image
-        src="/aex-logo.png"
-        alt="AEX"
-        width={64}
-        height={64}
-        priority
-        className="mb-7 rounded-full border border-border"
-      />
-      <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-        {t(profile.role)}
-      </p>
-      <h1 className="mt-4 font-display text-4xl font-bold leading-[1.08] tracking-tight text-text sm:text-6xl">
-        {profile.name}
-      </h1>
-      <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
-        {t(profile.tagline)}
-      </p>
-      <p className="mt-4 text-sm text-muted">{t(profile.location)}</p>
+      <Reveal>
+        <Image
+          src="/aex-logo.png"
+          alt="AEX"
+          width={64}
+          height={64}
+          priority
+          className="mb-7 rounded-full border border-border"
+        />
+      </Reveal>
+      <Reveal delay={60}>
+        <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+          {t(profile.role)}
+        </p>
+        <h1 className="mt-4 font-display text-4xl font-bold leading-[1.08] tracking-tight text-text sm:text-6xl">
+          {profile.name}
+        </h1>
+      </Reveal>
+      <Reveal delay={140}>
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
+          {t(profile.tagline)}
+        </p>
+        <p className="mt-4 text-sm text-muted">{t(profile.location)}</p>
+      </Reveal>
 
-      <div className="mt-8 flex flex-wrap items-center gap-3">
+      <Reveal delay={220} className="mt-8 flex flex-wrap items-center gap-3">
         <a
           href={`mailto:${profile.email}`}
           className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-bg transition-opacity hover:opacity-90"
@@ -97,9 +109,11 @@ export function Hero() {
             <Icon />
           </a>
         ))}
-      </div>
+      </Reveal>
 
-      <ProofBar />
+      <Reveal delay={300}>
+        <ProofBar />
+      </Reveal>
     </section>
   );
 }
@@ -357,6 +371,25 @@ export function Stack() {
           </span>
         ))}
       </div>
+
+      {/* Van aqui y no en una seccion propia: son habilidades igual que el
+          resto del bloque, y una entrada mas en el nav lo dejaria apretado. */}
+      <p className="mt-9 text-sm font-medium text-text">
+        {t(ui.softSkillsLabel)}
+      </p>
+      <ul className="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2">
+        {softSkills.map((skill) => (
+          <li
+            key={t(skill)}
+            className="flex items-baseline gap-2 text-sm text-muted"
+          >
+            <span aria-hidden className="text-accent">
+              ✦
+            </span>
+            {t(skill)}
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }

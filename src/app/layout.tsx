@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { CodeBackdrop } from "@/components/code-backdrop";
 import { profile, socials } from "@/content/site";
 import "./globals.css";
 
@@ -81,6 +82,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${display.variable} font-sans antialiased`}
       >
+        <CodeBackdrop />
         <Providers>{children}</Providers>
       </body>
     </html>
