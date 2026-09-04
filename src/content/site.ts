@@ -13,6 +13,8 @@ export type Project = {
   links: Link[];
   /** Captura del producto en vivo; solo la lleva el proyecto destacado. */
   image?: { src: string; alt: T; width: number; height: number };
+  /** Problema, dificultad y uso real: lo que un revisor lee para juzgar criterio. */
+  caseStudy?: { heading: T; body: T }[];
 };
 
 export type CommunityItem = {
@@ -29,11 +31,12 @@ export const profile = {
   name: "Alejandro Tintaya Montecinos",
   role: both("Web3 Builder & Developer"),
   location: both("La Paz, Bolivia"),
-  // Sin la cifra: ya esta en la barra de prueba, y repetirla aqui sonaba a
-  // presumir en vez de decir a que se dedica.
+  // Sin la cifra (ya esta en la barra de prueba) y sin mezclar el canal con
+  // las herramientas: los videos son de airdrops, DeFi e inversion, no
+  // tutoriales de estas herramientas.
   tagline: {
-    es: "Construyo herramientas cripto en TypeScript y explico en video cómo usarlas.",
-    en: "I build crypto tools in TypeScript and explain on video how to use them.",
+    es: "Construyo herramientas cripto en TypeScript para mí y para mi comunidad.",
+    en: "I build crypto tools in TypeScript for myself and for my community.",
   } as T,
   email: "latmontecinos@gmail.com",
 };
@@ -113,6 +116,29 @@ export const projects: Project[] = [
       width: 1280,
       height: 800,
     },
+    caseStudy: [
+      {
+        heading: { es: "Por qué existe", en: "Why it exists" },
+        body: {
+          es: "Operando me topé con una necesidad concreta: saber dónde convenía entrar de verdad, contando comisión, slippage y funding, no solo la comisión que cada exchange publica. No encontré con qué hacerlo rápido, así que lo construí — primero para mí, después para la comunidad de Telegram con la que ya venía siguiendo estos temas.",
+          en: "Trading, I ran into a concrete need: knowing where it actually pays to enter once you count fees, slippage and funding — not just the fee each exchange advertises. I couldn't find a quick way to do it, so I built one: first for myself, then for the Telegram community I'd already been following these markets with.",
+        },
+      },
+      {
+        heading: { es: "Lo más difícil", en: "The hard part" },
+        body: {
+          es: "Que todo conectara. Catorce exchanges, cada uno con su API, su formato y sus límites — las llamadas fueron con diferencia lo más complicado: no es traer un dato, es traerlo de catorce fuentes distintas y que los números queden comparables entre sí. A partir de ahí fue iterar e iterar.",
+          en: "Getting everything to connect. Fourteen exchanges, each with its own API, format and limits — the calls were by far the hardest part: it isn't fetching one number, it's fetching it from fourteen different sources and leaving them comparable. From there it was iterate and iterate.",
+        },
+      },
+      {
+        heading: { es: "En qué quedó", en: "Where it stands" },
+        body: {
+          es: "Lo uso todos los días. La comunidad lo consume sobre todo por el bot de Telegram que construí encima, que entrega lo mismo sin abrir la web.",
+          en: "I use it every day. The community mostly consumes it through the Telegram bot I built on top, which delivers the same thing without opening the site.",
+        },
+      },
+    ],
     links: [
       {
         label: { es: "Ver en vivo", en: "View live" },
@@ -165,8 +191,8 @@ export const community: CommunityItem[] = [
     org: both("Alex Criptomonedas"),
     period: { es: "2020 — actualidad", en: "2020 — present" },
     detail: {
-      es: "4.650 suscriptores y 262 videos sobre uso práctico de herramientas cripto: DeFi, airdrops, análisis y seguridad.",
-      en: "4,650 subscribers and 262 videos on the practical use of crypto tools: DeFi, airdrops, analysis and security.",
+      es: "4.650 suscriptores y 262 videos sobre airdrops, DeFi e inversión en cripto.",
+      en: "4,650 subscribers and 262 videos on airdrops, DeFi and crypto investing.",
     },
     href: socials.youtube,
   },
@@ -238,6 +264,8 @@ export const ui = {
   stackDailyLabel: { es: "Uso a diario", en: "Daily driver" } as T,
   stackLearningLabel: { es: "Aprendiendo ahora", en: "Learning right now" } as T,
   softSkillsLabel: { es: "Habilidades blandas", en: "Soft skills" } as T,
+  caseStudyOpen: { es: "Leer el caso", en: "Read the case" } as T,
+  caseStudyClose: { es: "Ocultar el caso", en: "Hide the case" } as T,
   contactTitle: { es: "Hablemos", en: "Let's talk" } as T,
   contactBody: {
     es: "Estoy abierto a colaborar en proyectos Web3, bounties y programas de builders. La forma más rápida de llegarme es por correo.",

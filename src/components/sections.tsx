@@ -306,6 +306,35 @@ export function Projects() {
           <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted">
             {t(featured.summary)}
           </p>
+
+          {featured.caseStudy ? (
+            <details className="group mt-5 border-t border-border pt-4">
+              {/* <details> nativo: el caso queda plegado para quien escanea y
+                  disponible para quien quiere profundidad, sin depender de JS. */}
+              <summary className="inline-flex cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-accent hover:underline">
+                <span className="transition-transform group-open:rotate-90" aria-hidden>
+                  ▸
+                </span>
+                <span className="group-open:hidden">{t(ui.caseStudyOpen)}</span>
+                <span className="hidden group-open:inline">
+                  {t(ui.caseStudyClose)}
+                </span>
+              </summary>
+              <div className="mt-5 max-w-2xl space-y-5">
+                {featured.caseStudy.map((block) => (
+                  <div key={t(block.heading)}>
+                    <h4 className="font-mono text-xs uppercase tracking-[0.14em] text-text">
+                      {t(block.heading)}
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {t(block.body)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </details>
+          ) : null}
+
           <ProjectMeta project={featured} />
         </div>
       </article>
