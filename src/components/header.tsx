@@ -8,7 +8,7 @@ import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "@/components/icons";
 // 44px es el minimo tactil de Apple HIG / 48dp de Material: por debajo de eso
 // los controles del header se fallan con el pulgar en movil.
 const controlClass =
-  "inline-flex h-11 min-w-11 items-center justify-center gap-1.5 rounded-full border border-border bg-surface px-3 text-xs font-medium text-muted transition-colors hover:border-accent hover:text-accent";
+  "inline-flex h-11 min-w-11 items-center justify-center gap-1.5 rounded-full border border-border bg-surface px-3 font-mono text-xs text-muted transition-colors hover:border-accent hover:text-accent";
 
 export function Header() {
   const { lang, theme, toggleLang, toggleTheme, t } = useSite();
@@ -31,7 +31,7 @@ export function Header() {
       >
         {t(ui.skipToContent)}
       </a>
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-5 sm:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
         <a
           href="#top"
           aria-label={profile.name}
@@ -44,8 +44,8 @@ export function Header() {
           </span>
         </a>
 
-        <nav aria-label={t(ui.menuLabel)} className="hidden md:block">
-          <ul className="flex items-center gap-6 text-sm text-muted">
+        <nav aria-label={t(ui.menuLabel)} className="hidden md:block lg:hidden">
+          <ul className="flex items-center gap-6 font-mono text-xs uppercase tracking-[0.14em] text-muted">
             {nav.map((item) => (
               <li key={item.id}>
                 <a
@@ -96,13 +96,13 @@ export function Header() {
         hidden={!menuOpen}
         className="border-t border-border bg-bg md:hidden"
       >
-        <ul className="mx-auto max-w-5xl px-5 py-2">
+        <ul className="mx-auto max-w-7xl px-5 py-2 sm:px-8">
           {nav.map((item) => (
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
                 onClick={() => setMenuOpen(false)}
-                className="flex h-12 items-center text-sm text-muted transition-colors hover:text-text"
+                className="flex h-12 items-center font-mono text-xs uppercase tracking-[0.14em] text-muted transition-colors hover:text-text"
               >
                 {t(item.label)}
               </a>

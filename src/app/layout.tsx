@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { CodeBackdrop } from "@/components/code-backdrop";
 import { profile, socials } from "@/content/site";
@@ -8,6 +8,12 @@ import "./globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -80,7 +86,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: bootstrap }} />
       </head>
       <body
-        className={`${inter.variable} ${display.variable} font-sans antialiased`}
+        className={`${inter.variable} ${display.variable} ${mono.variable} font-sans antialiased`}
       >
         <CodeBackdrop />
         <Providers>{children}</Providers>

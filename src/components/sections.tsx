@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import {
   about,
+  nav,
   community,
   profile,
   projects,
@@ -29,17 +30,20 @@ import {
 
 function Section({
   id,
+  index,
   title,
   children,
 }: {
   id: string;
+  index: string;
   title: string;
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 border-t border-border py-14 sm:py-20">
+    <section id={id} className="scroll-mt-24 border-t border-border py-14 sm:py-16">
       <Reveal>
-        <h2 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+        <h2 className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-accent">
+          <span aria-hidden className="text-muted">{index}</span>
           {title}
         </h2>
       </Reveal>
@@ -58,11 +62,11 @@ const socialLinks = [
   { href: socials.telegramChannel, label: "Telegram", Icon: TelegramIcon },
 ];
 
-export function Hero() {
+export function Identity() {
   const { t } = useSite();
 
   return (
-    <section id="top" className="pb-14 pt-16 sm:pb-20 sm:pt-24">
+    <section id="top" className="pt-14 sm:pt-16 lg:pt-0">
       <Reveal>
         <Image
           src="/aex-logo.png"
@@ -74,28 +78,60 @@ export function Hero() {
         />
       </Reveal>
       <Reveal delay={60}>
-        <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
           {t(profile.role)}
         </p>
-        <h1 className="mt-4 font-display text-4xl font-bold leading-[1.08] tracking-tight text-text sm:text-6xl">
+        <h1 className="mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight text-text sm:text-5xl lg:text-[2.6rem] xl:text-5xl">
           {profile.name}
         </h1>
       </Reveal>
       <Reveal delay={140}>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
+        <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted lg:text-base">
           {t(profile.tagline)}
         </p>
-        <p className="mt-4 text-sm text-muted">{t(profile.location)}</p>
+        <p className="mt-4 font-mono text-xs text-muted">
+          {t(profile.location)}
+        </p>
       </Reveal>
 
-      <Reveal delay={220} className="mt-8 flex flex-wrap items-center gap-3">
+      {/* La navegacion vive aqui solo en escritorio: en la columna fija queda
+          siempre a la vista, y el header se queda con ella en pantallas
+          chicas para no repetirla dos veces en el mismo viewport. */}
+      <Reveal delay={200} className="mt-9 hidden lg:block">
+        <nav aria-label={t(ui.menuLabel)}>
+          <ul className="space-y-1">
+            {nav.map((item, i) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="group flex items-center gap-3 py-1.5 font-mono text-xs uppercase tracking-[0.14em] text-muted transition-colors hover:text-text"
+                >
+                  <span
+                    aria-hidden
+                    className="h-px w-6 bg-border transition-all group-hover:w-10 group-hover:bg-accent"
+                  />
+                  <span className="text-accent/70">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {t(item.label)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </Reveal>
+
+      <Reveal delay={240} className="mt-9 flex flex-wrap items-center gap-3">
         <a
           href={`mailto:${profile.email}`}
-          className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-bg transition-opacity hover:opacity-90"
+          className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 font-mono text-xs font-semibold text-bg transition-opacity hover:opacity-90"
         >
           <MailIcon />
           {profile.email}
         </a>
+      </Reveal>
+
+      <Reveal delay={300} className="mt-4 flex flex-wrap items-center gap-2">
         {socialLinks.map(({ href, label, Icon }) => (
           <a
             key={label}
@@ -110,19 +146,15 @@ export function Hero() {
           </a>
         ))}
       </Reveal>
-
-      <Reveal delay={300}>
-        <ProofBar />
-      </Reveal>
     </section>
   );
 }
 
-function ProofBar() {
+export function ProofBar() {
   const { t } = useSite();
 
   return (
-    <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-7 border-t border-border pt-8 sm:grid-cols-4">
+    <dl className="grid grid-cols-2 gap-x-6 gap-y-7 pb-2 pt-12 sm:grid-cols-4 lg:pt-0">
       {proof.map((item) => {
         const value = (
           <dt className="font-display text-2xl font-bold tracking-tight text-text transition-colors sm:text-3xl">
@@ -166,7 +198,7 @@ export function About() {
   const { t } = useSite();
 
   return (
-    <Section id="about" title={t(ui.aboutTitle)}>
+    <Section id="about" index="01" title={t(ui.aboutTitle)}>
       <div className="max-w-2xl space-y-4 text-base leading-relaxed text-muted">
         {t(about)
           .split("\n\n")
@@ -243,7 +275,7 @@ export function Projects() {
   const [featured, ...rest] = projects;
 
   return (
-    <Section id="projects" title={t(ui.projectsTitle)}>
+    <Section id="projects" index="02" title={t(ui.projectsTitle)}>
       <article className="overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-accent/60">
         {featured.image ? (
           <a
@@ -296,7 +328,7 @@ export function Community() {
   const { t } = useSite();
 
   return (
-    <Section id="community" title={t(ui.communityTitle)}>
+    <Section id="community" index="03" title={t(ui.communityTitle)}>
       <ul className="space-y-6">
         {community.map((item) => (
           <li
@@ -336,7 +368,7 @@ export function Stack() {
   const { t } = useSite();
 
   return (
-    <Section id="stack" title={t(ui.stackTitle)}>
+    <Section id="stack" index="04" title={t(ui.stackTitle)}>
       <p className="text-sm font-medium text-text">{t(ui.stackDailyLabel)}</p>
       <dl className="mt-4 grid gap-6 sm:grid-cols-2">
         {stackDaily.map((group) => (
@@ -398,7 +430,7 @@ export function Contact() {
   const { t } = useSite();
 
   return (
-    <Section id="contact" title={t(ui.contactTitle)}>
+    <Section id="contact" index="05" title={t(ui.contactTitle)}>
       <p className="max-w-xl text-base leading-relaxed text-muted">
         {t(ui.contactBody)}
       </p>

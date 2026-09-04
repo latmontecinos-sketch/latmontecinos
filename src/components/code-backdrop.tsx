@@ -123,7 +123,7 @@ export function CodeBackdrop() {
       <canvas ref={canvasRef} className="block h-full w-full" />
       {/* Difumina la lluvia hacia el centro para que nunca compita con el
           texto que queda en la zona de lectura. */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_58%_62%_at_center,var(--bg)_45%,transparent_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_74%_70%_at_center,var(--bg)_52%,transparent_100%)]" />
     </div>
   );
 }

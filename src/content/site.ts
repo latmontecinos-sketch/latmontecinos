@@ -29,9 +29,11 @@ export const profile = {
   name: "Alejandro Tintaya Montecinos",
   role: both("Web3 Builder & Developer"),
   location: both("La Paz, Bolivia"),
+  // Sin la cifra: ya esta en la barra de prueba, y repetirla aqui sonaba a
+  // presumir en vez de decir a que se dedica.
   tagline: {
-    es: "Construyo herramientas cripto en TypeScript y le explico a 4.600 personas cómo usarlas.",
-    en: "I build crypto tools in TypeScript and teach 4,600 people how to use them.",
+    es: "Construyo herramientas cripto en TypeScript y explico en video cómo usarlas.",
+    en: "I build crypto tools in TypeScript and explain on video how to use them.",
   } as T,
   email: "latmontecinos@gmail.com",
 };
