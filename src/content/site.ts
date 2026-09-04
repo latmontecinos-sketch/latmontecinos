@@ -49,6 +49,7 @@ export const socials = {
   youtube: "https://www.youtube.com/@AlexCriptomonedas",
   telegramChannel: "https://t.me/AlexCriptoAnuncios",
   telegramCommunity: "https://t.me/+SpY76r8P0s9BhgtO",
+  telegramBot: "https://t.me/Aex_Gold_Silver_bot",
 };
 
 /**
@@ -142,8 +143,8 @@ export const projects: Project[] = [
       {
         heading: { es: "En qué quedó", en: "Where it stands" },
         body: {
-          es: "Lo uso todos los días. La comunidad lo consume sobre todo por el bot de Telegram que construí encima, que entrega lo mismo sin abrir la web.",
-          en: "I use it every day. The community mostly consumes it through the Telegram bot I built on top, which delivers the same thing without opening the site.",
+          es: "Lo uso todos los días. Encima construí un bot de Telegram, @Aex_Gold_Silver_bot, que vigila el ratio Oro/Plata con RSI en cuatro temporalidades y avisa solo cuando hay algo: así la comunidad recibe la señal sin tener que entrar a mirar.",
+          en: "I use it every day. On top of it I built a Telegram bot, @Aex_Gold_Silver_bot, that watches the gold/silver ratio with RSI across four timeframes and only pings when there is something: the community gets the signal without having to come and look.",
         },
       },
     ],
@@ -155,6 +156,20 @@ export const projects: Project[] = [
       {
         label: both("GitHub"),
         href: "https://github.com/latmontecinos-sketch/aexbitrage",
+      },
+    ],
+  },
+  {
+    name: "Aex Gold/Silver bot",
+    summary: {
+      es: "Bot de Telegram que sigue el ratio Oro/Plata con RSI en 15m, 1h, 4h y 1d. Detecta cruces, divergencias precio/RSI y confluencia entre temporalidades, abre y cierra la posición por su cuenta y numera cada entrada.",
+      en: "Telegram bot tracking the gold/silver ratio with RSI on 15m, 1h, 4h and 1d. It spots crossings, price/RSI divergences and cross-timeframe confluence, opens and closes the position on its own, and numbers every entry.",
+    },
+    tags: ["TypeScript", "Node", "Telegraf"],
+    links: [
+      {
+        label: { es: "Abrir en Telegram", en: "Open in Telegram" },
+        href: "https://t.me/Aex_Gold_Silver_bot",
       },
     ],
   },

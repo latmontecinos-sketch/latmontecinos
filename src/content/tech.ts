@@ -8,7 +8,9 @@ import {
   siPostgresql,
   siReact,
   siStellar,
+  siSupabase,
   siTailwindcss,
+  siTelegram,
   siTurso,
   siTypescript,
   siVercel,
@@ -56,7 +58,12 @@ export const techGroups: { title: T; note: T; items: Tech[] }[] = [
   {
     title: { es: "Backend y datos", en: "Backend & data" },
     note: { es: "APIs, persistencia y jobs", en: "APIs, persistence and jobs" },
-    items: [icon(siNodedotjs, "Node.js"), icon(siPostgresql), icon(siTurso)],
+    items: [
+      icon(siNodedotjs, "Node.js"),
+      icon(siPostgresql),
+      icon(siSupabase),
+      icon(siTurso),
+    ],
   },
   {
     title: { es: "Web3", en: "Web3" },
@@ -65,7 +72,12 @@ export const techGroups: { title: T; note: T; items: Tech[] }[] = [
   },
   {
     title: { es: "Herramientas", en: "Tooling" },
-    note: { es: "Control de versiones y despliegue", en: "Version control and deploys" },
-    items: [icon(siGit), icon(siGithub, "GitHub", THEMED), icon(siVercel, "Vercel", THEMED)],
+    note: { es: "Versiones, despliegue y bots", en: "Versions, deploys and bots" },
+    items: [
+      icon(siGit),
+      icon(siGithub, "GitHub", THEMED),
+      icon(siVercel, "Vercel", THEMED),
+      icon(siTelegram),
+    ],
   },
 ];
