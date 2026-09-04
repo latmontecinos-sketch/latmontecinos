@@ -57,6 +57,14 @@ export function Hero() {
 
   return (
     <section id="top" className="pb-14 pt-16 sm:pb-20 sm:pt-24">
+      <Image
+        src="/aex-logo.png"
+        alt="AEX"
+        width={64}
+        height={64}
+        priority
+        className="mb-7 rounded-full border border-border"
+      />
       <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent">
         {t(profile.role)}
       </p>
