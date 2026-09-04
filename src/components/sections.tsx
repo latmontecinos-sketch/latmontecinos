@@ -289,7 +289,11 @@ export function Projects() {
               alt={t(featured.image.alt)}
               width={featured.image.width}
               height={featured.image.height}
-              sizes="(min-width: 1024px) 960px, 100vw"
+              // Next la marca como elemento LCP: en escritorio cae justo en el
+              // borde del primer viewport, asi que se pide con prioridad en vez
+              // de esperar al lazy load.
+              priority
+              sizes="(min-width: 1024px) 780px, 100vw"
               // A tamaño completo la captura ocupaba casi toda la pantalla y
               // empujaba el resto fuera de vista; recortada a banner se lee
               // como vista previa y no como la pagina embebida.
