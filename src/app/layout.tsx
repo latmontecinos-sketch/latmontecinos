@@ -25,8 +25,10 @@ const display = Space_Grotesk({
 
 const pageTitle = `${profile.name} — ${profile.role.es}`;
 
+// Es lo que se lee en Google y al compartir el enlace, asi que sigue al
+// tagline: primero el oficio, despues el terreno donde hay profundidad.
 const description =
-  "Web3 builder y developer en La Paz, Bolivia. Herramientas cripto en TypeScript, core team de Ethereum Bolivia y creador de Alex Criptomonedas.";
+  "Desarrollador en La Paz, Bolivia. Construyo productos web en TypeScript — React, Next.js, Node — en Web2 y Web3. Core team de Ethereum Bolivia.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://latmontecinos.vercel.app"),
@@ -36,12 +38,14 @@ export const metadata: Metadata = {
   },
   description,
   keywords: [
+    "desarrollador",
+    "full stack",
+    "TypeScript",
+    "React",
+    "Next.js",
     "Web3",
     "Stellar",
-    "DeFi",
     "Bolivia",
-    "TypeScript",
-    "Ethereum Bolivia",
   ],
   authors: [{ name: profile.name, url: socials.github }],
   creator: profile.name,
