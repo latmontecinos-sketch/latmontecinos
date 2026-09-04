@@ -1,11 +1,13 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Image from "next/image";
 import {
   about,
   community,
   profile,
   projects,
+  type Project,
   proof,
   socials,
   stackDaily,
@@ -154,59 +156,113 @@ export function About() {
   );
 }
 
-export function Projects() {
+function ProjectTitle({ project, large }: { project: Project; large?: boolean }) {
   const { t } = useSite();
 
   return (
+    <div className="flex items-center gap-2.5">
+      <h3
+        className={`font-display font-semibold text-text ${
+          large ? "text-xl sm:text-2xl" : "text-lg"
+        }`}
+      >
+        {project.name}
+      </h3>
+      {project.status ? (
+        <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-medium text-accent">
+          {t(project.status)}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
+function ProjectMeta({ project }: { project: Project }) {
+  const { t } = useSite();
+
+  return (
+    <>
+      <ul className="mt-4 flex flex-wrap gap-1.5">
+        {project.tags.map((tag) => (
+          <li
+            key={tag}
+            className="rounded-md bg-surface-2 px-2 py-1 text-[11px] text-muted"
+          >
+            {tag}
+          </li>
+        ))}
+      </ul>
+
+      {project.links.length > 0 ? (
+        <div className="mt-4 flex flex-wrap gap-4">
+          {project.links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
+            >
+              {t(link.label)}
+              <ArrowIcon className="h-3.5 w-3.5" />
+            </a>
+          ))}
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+export function Projects() {
+  const { t } = useSite();
+  // El primero es el proyecto ancla: esta vivo y se puede abrir y probar, asi
+  // que se lleva la captura y el ancho completo. Darle a los tres el mismo
+  // peso desperdiciaba justo el unico que un revisor puede comprobar.
+  const [featured, ...rest] = projects;
+
+  return (
     <Section id="projects" title={t(ui.projectsTitle)}>
-      <ul className="grid gap-4 sm:grid-cols-2">
-        {projects.map((project) => (
+      <article className="overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-accent/60">
+        {featured.image ? (
+          <a
+            href={featured.links[0]?.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block border-b border-border"
+          >
+            <Image
+              src={featured.image.src}
+              alt={t(featured.image.alt)}
+              width={featured.image.width}
+              height={featured.image.height}
+              sizes="(min-width: 1024px) 960px, 100vw"
+              // A tamaño completo la captura ocupaba casi toda la pantalla y
+              // empujaba el resto fuera de vista; recortada a banner se lee
+              // como vista previa y no como la pagina embebida.
+              className="aspect-[2/1] w-full object-cover object-top"
+            />
+          </a>
+        ) : null}
+        <div className="p-5 sm:p-6">
+          <ProjectTitle project={featured} large />
+          <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted">
+            {t(featured.summary)}
+          </p>
+          <ProjectMeta project={featured} />
+        </div>
+      </article>
+
+      <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+        {rest.map((project) => (
           <li
             key={project.name}
             className="flex flex-col rounded-xl border border-border bg-surface p-5 transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-accent/60"
           >
-            <div className="flex items-center gap-2.5">
-              <h3 className="font-display text-lg font-semibold text-text">
-                {project.name}
-              </h3>
-              {project.status ? (
-                <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-medium text-accent">
-                  {t(project.status)}
-                </span>
-              ) : null}
-            </div>
-
+            <ProjectTitle project={project} />
             <p className="mt-2.5 flex-1 text-sm leading-relaxed text-muted">
               {t(project.summary)}
             </p>
-
-            <ul className="mt-4 flex flex-wrap gap-1.5">
-              {project.tags.map((tag) => (
-                <li
-                  key={tag}
-                  className="rounded-md bg-surface-2 px-2 py-1 text-[11px] text-muted"
-                >
-                  {tag}
-                </li>
-              ))}
-            </ul>
-
-            {project.links.length > 0 ? (
-              <div className="mt-4 flex flex-wrap gap-4">
-                {project.links.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
-                  >
-                    {t(link.label)}
-                    <ArrowIcon className="h-3.5 w-3.5" />
-                  </a>
-                ))}
-              </div>
-            ) : null}
+            <ProjectMeta project={project} />
           </li>
         ))}
       </ul>

@@ -11,6 +11,8 @@ export type Project = {
   tags: string[];
   status?: T;
   links: Link[];
+  /** Captura del producto en vivo; solo la lleva el proyecto destacado. */
+  image?: { src: string; alt: T; width: number; height: number };
 };
 
 export type CommunityItem = {
@@ -100,6 +102,15 @@ export const projects: Project[] = [
       en: "Real-cost comparator and delta-neutral arbitrage screener across 14 perpetual futures exchanges. Compares fees, slippage and funding live over 176 assets, leveraged equities included.",
     },
     tags: ["TypeScript", "Next.js", "Tailwind"],
+    image: {
+      src: "/aexbitrage.png",
+      alt: {
+        es: "Portada de Aexbitrage: comparador de comisión, slippage y funding en 14 exchanges de perpetuos.",
+        en: "Aexbitrage home page: comparator of fees, slippage and funding across 14 perpetual futures exchanges.",
+      },
+      width: 1280,
+      height: 800,
+    },
     links: [
       {
         label: { es: "Ver en vivo", en: "View live" },
