@@ -11,13 +11,14 @@ import {
   type Project,
   proof,
   socials,
-  stackDaily,
+  howIWork,
   stackLearning,
   softSkills,
   ui,
 } from "@/content/site";
 import { useSite } from "@/components/providers";
 import { Reveal } from "@/components/reveal";
+import { techGroups } from "@/content/tech";
 import {
   ArrowIcon,
   GitHubIcon,
@@ -402,26 +403,58 @@ export function Stack() {
 
   return (
     <Section id="stack" index="04" title={t(ui.stackTitle)}>
-      <p className="text-sm font-medium text-text">{t(ui.stackDailyLabel)}</p>
-      <dl className="mt-4 grid gap-6 sm:grid-cols-2">
-        {stackDaily.map((group) => (
-          <div key={group.items.join()}>
-            <dt className="text-xs uppercase tracking-wider text-muted">
-              {t(group.group)}
-            </dt>
-            <dd className="mt-2.5 flex flex-wrap gap-1.5">
-              {group.items.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs text-muted"
+      {/* Rejilla por categoria con los logos de cada tecnologia: se escanea de
+          un vistazo, mientras que la lista de chips habia que leerla entera. */}
+      <p className="text-sm font-medium text-text">{t(ui.techTitle)}</p>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        {techGroups.map((group) => (
+          <div
+            key={t(group.title)}
+            className="rounded-xl border border-border bg-surface p-4"
+          >
+            <h3 className="font-mono text-xs uppercase tracking-[0.14em] text-text">
+              {t(group.title)}
+            </h3>
+            <p className="mt-1 text-xs text-muted">{t(group.note)}</p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {group.items.map((tech) => (
+                <li
+                  key={tech.name}
+                  className="flex w-[4.75rem] flex-col items-center gap-2 rounded-lg border border-white/10 bg-[#17150f] px-2 py-3 text-center"
                 >
-                  {item}
-                </span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden
+                    className="h-6 w-6 shrink-0"
+                    style={{ fill: tech.color }}
+                  >
+                    <path d={tech.path} />
+                  </svg>
+                  <span className="font-mono text-[10px] leading-tight text-[#9c9385]">
+                    {tech.name}
+                  </span>
+                </li>
               ))}
-            </dd>
+            </ul>
           </div>
         ))}
-      </dl>
+      </div>
+
+      {/* Declarado, no escondido: como se construye pesa tanto como con que. */}
+      <p className="mt-9 text-sm font-medium text-text">{t(ui.howIWorkLabel)}</p>
+      <ul className="mt-3 space-y-2">
+        {howIWork.map((item) => (
+          <li
+            key={t(item)}
+            className="flex items-baseline gap-2 text-sm text-muted"
+          >
+            <span aria-hidden className="text-accent">
+              ✦
+            </span>
+            {t(item)}
+          </li>
+        ))}
+      </ul>
 
       <p className="mt-9 text-sm font-medium text-text">
         {t(ui.stackLearningLabel)}

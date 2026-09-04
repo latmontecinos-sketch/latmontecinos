@@ -1,0 +1,71 @@
+import {
+  siGit,
+  siGithub,
+  siEthereum,
+  siJavascript,
+  siNextdotjs,
+  siNodedotjs,
+  siPostgresql,
+  siReact,
+  siStellar,
+  siTailwindcss,
+  siTurso,
+  siTypescript,
+  siVercel,
+} from "simple-icons";
+import type { T } from "./site";
+
+export type Tech = { name: string; path: string; color: string };
+
+/**
+ * Las fichas usan un fondo oscuro fijo en los dos temas. Los logos de marca
+ * estan pensados para fondo oscuro o blanco, y varios (JavaScript, Stellar,
+ * Turso, React) son colores claros que sobre el tema claro quedaban en torno a
+ * 1.2:1 — practicamente invisibles. Con la ficha oscura todos se leen igual.
+ *
+ * Por lo mismo, las marcas casi negras (Next.js, GitHub, Vercel, Ethereum) se
+ * pintan en claro fijo y no con el color del tema.
+ */
+const THEMED = "#f3f0e8";
+
+const icon = (
+  i: { title: string; path: string; hex: string },
+  name?: string,
+  color?: string,
+): Tech => ({
+  name: name ?? i.title,
+  path: i.path,
+  color: color ?? `#${i.hex}`,
+});
+
+export const techGroups: { title: T; note: T; items: Tech[] }[] = [
+  {
+    title: { es: "Lenguajes", en: "Languages" },
+    note: { es: "La base de todo lo que construyo", en: "The base of everything I build" },
+    items: [icon(siTypescript), icon(siJavascript)],
+  },
+  {
+    title: { es: "Frontend", en: "Frontend" },
+    note: { es: "Interfaces y producto", en: "Interfaces and product" },
+    items: [
+      icon(siReact),
+      icon(siNextdotjs, "Next.js", THEMED),
+      icon(siTailwindcss, "Tailwind"),
+    ],
+  },
+  {
+    title: { es: "Backend y datos", en: "Backend & data" },
+    note: { es: "APIs, persistencia y jobs", en: "APIs, persistence and jobs" },
+    items: [icon(siNodedotjs, "Node.js"), icon(siPostgresql), icon(siTurso)],
+  },
+  {
+    title: { es: "Web3", en: "Web3" },
+    note: { es: "EVM a diario, Stellar en curso", en: "EVM daily, Stellar in progress" },
+    items: [icon(siEthereum, "EVM", THEMED), icon(siStellar)],
+  },
+  {
+    title: { es: "Herramientas", en: "Tooling" },
+    note: { es: "Control de versiones y despliegue", en: "Version control and deploys" },
+    items: [icon(siGit), icon(siGithub, "GitHub", THEMED), icon(siVercel, "Vercel", THEMED)],
+  },
+];

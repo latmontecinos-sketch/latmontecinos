@@ -29,7 +29,7 @@ const both = (text: string): T => ({ es: text, en: text });
 
 export const profile = {
   name: "Alejandro Tintaya Montecinos",
-  role: both("Web3 Builder & Developer"),
+  role: both("Web2 & Web3 Developer"),
   location: both("La Paz, Bolivia"),
   // Sin la cifra (ya esta en la barra de prueba) y sin mezclar el canal con
   // las herramientas: los videos son de airdrops, DeFi e inversion, no
@@ -89,10 +89,18 @@ export const nav: { id: string; label: T }[] = [
 export const about: T = {
   es: `Llevo años en cripto, la mayor parte como usuario metido en EVM todos los días: DeFi, airdrops, trading. Hace unos meses empecé a construir mis propias herramientas — screeners de arbitraje, bots — casi siempre en comunidad, aprendiendo con otros.
 
+Tomo trabajos de Web2 y de Web3: la base es la misma — TypeScript, React, Node y una base de datos — con o sin blockchain de por medio.
+
+Construyo con vibe coding: me apoyo en IA para escribir el código. Lo que pongo yo es el criterio — años operando y moviéndome en comunidad me dicen qué hace falta de verdad, y por eso lo que sale termina siendo útil y enfocado en mi trabajo, no una demo más.
+
 Stellar es nuevo para mí y lo estoy aprendiendo de la misma forma: construyendo.
 
 Soy parte del core team de Ethereum Bolivia desde 2023, doy talleres sobre finanzas descentralizadas y charlas universitarias sobre DeFi e IA aplicada.`,
   en: `Years in crypto, mostly as a heavy day-to-day EVM user: DeFi, airdrops, trading. A few months ago I started building my own tools — arbitrage screeners, bots — mostly in community, learning alongside others.
+
+I take on both Web2 and Web3 work: the foundation is the same — TypeScript, React, Node and a database — with or without a blockchain in the middle.
+
+I build with vibe coding: I lean on AI to write the code. What I bring is the judgment — years trading and moving in community tell me what is actually needed, which is why what comes out is useful and aimed at my own work rather than one more demo.
 
 Stellar is new to me and I'm learning it the same way: by building.
 
@@ -246,6 +254,12 @@ export const stackDaily: { group: T; items: string[] }[] = [
 
 export const stackLearning: string[] = ["Stellar", "Soroban"];
 
+export const howIWork: T[] = [
+  { es: "Vibe coding — IA para escribir el código", en: "Vibe coding — AI to write the code" },
+  { es: "Criterio propio para decidir qué construir", en: "My own judgment on what to build" },
+  { es: "Iteración sobre uso real, no sobre demos", en: "Iteration on real use, not on demos" },
+];
+
 export const softSkills: T[] = [
   { es: "Comunicación efectiva", en: "Effective communication" },
   { es: "Trabajo en equipo", en: "Teamwork" },
@@ -262,6 +276,8 @@ export const ui = {
   communityTitle: { es: "Comunidad y charlas", en: "Community & talks" } as T,
   stackTitle: both("Stack"),
   stackDailyLabel: { es: "Uso a diario", en: "Daily driver" } as T,
+  techTitle: { es: "Habilidades técnicas", en: "Technical skills" } as T,
+  howIWorkLabel: { es: "Cómo trabajo", en: "How I work" } as T,
   stackLearningLabel: { es: "Aprendiendo ahora", en: "Learning right now" } as T,
   softSkillsLabel: { es: "Habilidades blandas", en: "Soft skills" } as T,
   caseStudyOpen: { es: "Leer el caso", en: "Read the case" } as T,
