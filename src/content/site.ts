@@ -53,16 +53,16 @@ export const nav: { id: string; label: T }[] = [
 ];
 
 export const about: T = {
-  es: `Llevo seis años en blockchain y mercados financieros. Empecé explicando cripto en video y terminé construyendo las herramientas que a mí me hacían falta: screeners de arbitraje, bots y, ahora, pagos onchain.
+  es: `Llevo años en cripto, la mayor parte como usuario metido en EVM todos los días: DeFi, airdrops, trading. Hace unos meses empecé a construir mis propias herramientas — screeners de arbitraje, bots — casi siempre en comunidad, aprendiendo con otros.
 
-Vengo de EVM. Stellar es nuevo para mí y lo estoy aprendiendo construyendo — un sistema de entradas con pagos en USDC, no un tutorial.
+Stellar es nuevo para mí y lo estoy aprendiendo de la misma forma: construyendo.
 
 Soy parte del core team de Ethereum Bolivia desde 2023, doy talleres sobre finanzas descentralizadas y charlas universitarias sobre DeFi e IA aplicada.`,
-  en: `Six years in blockchain and financial markets. I started out explaining crypto on video and ended up building the tools I was missing: arbitrage screeners, bots and, now, onchain payments.
+  en: `Years in crypto, mostly as a heavy day-to-day EVM user: DeFi, airdrops, trading. A few months ago I started building my own tools — arbitrage screeners, bots — mostly in community, learning alongside others.
 
-My background is EVM. Stellar is new to me and I am learning it by building — a ticketing system with USDC payments, not a tutorial.
+Stellar is new to me and I'm learning it the same way: by building.
 
-I have been on the Ethereum Bolivia core team since 2023, I run workshops on decentralized finance and give university talks on DeFi and applied AI.`,
+I've been on the Ethereum Bolivia core team since 2023, I run workshops on decentralized finance and give university talks on DeFi and applied AI.`,
 };
 
 export const projects: Project[] = [
@@ -81,21 +81,6 @@ export const projects: Project[] = [
       {
         label: both("GitHub"),
         href: "https://github.com/latmontecinos-sketch/aexbitrage",
-      },
-    ],
-  },
-  {
-    name: "Pollar Pass",
-    status: { es: "En curso", en: "In progress" },
-    summary: {
-      es: "Preventa de entradas y control de puerta para eventos en Bolivia, pagadas por QR en USDC sobre Stellar. Autenticación por firma SEP-53 verificada en el servidor y conciliación de pagos contra Horizon.",
-      en: "Ticket presale and door check-in for events in Bolivia, paid by QR in USDC on Stellar. Server-verified SEP-53 signature auth and payment reconciliation against Horizon.",
-    },
-    tags: ["Next.js", "Stellar", "libSQL / Turso"],
-    links: [
-      {
-        label: { es: "Pull request", en: "Pull request" },
-        href: "https://github.com/pollar-xyz/pollar-apps/pull/32",
       },
     ],
   },
