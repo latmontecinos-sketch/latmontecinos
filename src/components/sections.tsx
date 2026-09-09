@@ -56,11 +56,13 @@ function Section({
   );
 }
 
+// GitHub y LinkedIn primero: en un portafolio de coder son los dos destinos
+// que alguien evaluando abre, y estaban detras de YouTube.
 const socialLinks = [
-  { href: socials.youtube, label: "YouTube", Icon: YouTubeIcon },
   { href: socials.github, label: "GitHub", Icon: GitHubIcon },
   { href: socials.linkedin, label: "LinkedIn", Icon: LinkedInIcon },
   { href: socials.x, label: "X", Icon: XIcon },
+  { href: socials.youtube, label: "YouTube", Icon: YouTubeIcon },
   { href: socials.telegramChannel, label: "Telegram", Icon: TelegramIcon },
 ];
 
@@ -184,12 +186,16 @@ export function ProofBar() {
 
         // Una cifra comprobable en un clic pesa mucho mas que una que hay que
         // creer, asi que cada dato con fuente publica va enlazado a su prueba.
+        // Cuando la prueba esta en esta misma pagina el enlace es un ancla, y
+        // abrirla en pestaña nueva seria absurdo.
+        const external = !item.href?.startsWith("#");
+
         return item.href ? (
           <div key={t(item.label)} className="group">
             <a
               href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
               className="block"
             >
               <span className="block group-hover:text-accent [&>dt]:group-hover:text-accent">
@@ -523,7 +529,7 @@ export function Contact() {
           {profile.email}
         </a>
         <a
-          href={socials.telegramCommunity}
+          href={socials.telegramDirect}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"

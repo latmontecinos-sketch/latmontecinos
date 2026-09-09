@@ -46,31 +46,47 @@ export const socials = {
   youtube: "https://www.youtube.com/@AlexCriptomonedas",
   telegramChannel: "https://t.me/AlexCriptoAnuncios",
   telegramCommunity: "https://t.me/+SpY76r8P0s9BhgtO",
+  // Contacto directo, no el grupo: quien quiere escribirle a el no tiene que
+  // caer en una comunidad de 700 personas para hacerlo.
+  telegramDirect: "https://t.me/AlexCriptomonedas",
 };
 
 /**
- * Cifras duras del hero. Cada una lleva a su prueba: una afirmacion que no se
- * puede verificar en un clic pesa mucho menos que una que si.
+ * Cifras duras del hero. Dos reglas mandan.
+ *
+ * Cada una lleva a su prueba: una afirmacion que no se puede verificar en un
+ * clic pesa mucho menos que una que si.
+ *
+ * Y ninguna es de audiencia. Los suscriptores se ganaron enseñando airdrops y
+ * DeFi, no construyendo, asi que arriba de todo dirian "creador de contenido"
+ * justo donde la pagina tiene que decir "desarrollador". Esas cifras no se
+ * borraron: viven en `community`, que es donde son recorrido y no logro.
  */
 export const proof: { value: T; label: T; href?: string }[] = [
   {
-    // el separador de miles cambia con el idioma: 4.650 en es, 4,650 en en
-    value: { es: "4.650", en: "4,650" },
-    label: { es: "suscriptores en YouTube", en: "YouTube subscribers" },
-    href: "https://www.youtube.com/@AlexCriptomonedas",
-  },
-  {
-    value: both("262"),
-    label: { es: "videos publicados", en: "videos published" },
-    href: "https://www.youtube.com/@AlexCriptomonedas",
+    value: both("2"),
+    label: {
+      es: "herramientas propias en producción",
+      en: "of my own tools in production",
+    },
+    // ancla interna: la prueba de esta cifra esta en la misma pagina
+    href: "#projects",
   },
   {
     value: { es: "3 años", en: "3 years" },
     label: { es: "core team en Ethereum Bolivia", en: "on the Ethereum Bolivia core team" },
+    href: "https://www.linkedin.com/company/ethereumbo/",
+  },
+  {
+    value: both("2026"),
+    label: { es: "builder en Stellar Elite Bolivia", en: "builder at Stellar Elite Bolivia" },
   },
   {
     value: { es: "6ª ed.", en: "6th ed." },
-    label: { es: "expositor en Cripto Conferencia", en: "speaker at Cripto Conferencia" },
+    label: {
+      es: "taller de DeFi en Cripto Conferencia",
+      en: "DeFi workshop at Cripto Conferencia",
+    },
     href: "https://criptoconferencia.net",
   },
 ];
@@ -204,14 +220,18 @@ export const community: CommunityItem[] = [
       es: "Comunidad Ethereum en Bolivia: eventos, ideathons y formación de nuevos builders.",
       en: "The Ethereum community in Bolivia: events, ideathons and onboarding new builders.",
     },
+    href: "https://www.linkedin.com/company/ethereumbo/",
   },
   {
     title: { es: "Creador de contenido", en: "Content creator" },
     org: both("Alex Criptomonedas"),
     period: { es: "2020 — actualidad", en: "2020 — present" },
+    // Las cifras de audiencia van aca y no en el hero: son reales, pero se
+    // ganaron enseñando airdrops y DeFi, no construyendo. La ultima frase es la
+    // que las hace pertinentes — explican para quien son las herramientas.
     detail: {
-      es: "4.650 suscriptores y 262 videos sobre airdrops, DeFi e inversión en cripto.",
-      en: "4,650 subscribers and 262 videos on airdrops, DeFi and crypto investing.",
+      es: "4.650 suscriptores en YouTube, 1.100 en el canal de Telegram, 700 en la comunidad y +900 en X. Airdrops, DeFi e inversión en cripto. De ahí salió la comunidad para la que después construí las herramientas.",
+      en: "4,650 YouTube subscribers, 1,100 on the Telegram channel, 700 in the community and 900+ on X. Airdrops, DeFi and crypto investing. That's where the community I later built the tools for came from.",
     },
     href: socials.youtube,
   },
