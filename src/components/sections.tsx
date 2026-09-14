@@ -19,6 +19,7 @@ import {
 } from "@/content/site";
 import { useSite } from "@/components/providers";
 import { Reveal } from "@/components/reveal";
+import { SiteControls } from "@/components/header";
 import { techGroups } from "@/content/tech";
 import { useActiveSection } from "@/components/use-active-section";
 import {
@@ -44,7 +45,7 @@ function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 border-t border-border py-14 sm:py-16">
+    <section id={id} className="scroll-mt-8 border-t border-border py-14 sm:py-16">
       <Reveal>
         <h2 className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-accent">
           <span aria-hidden className="text-muted">{index}</span>
@@ -75,16 +76,17 @@ export function Identity() {
   const active = useActiveSection(NAV_IDS);
 
   return (
-    <section id="top" className="pt-14 sm:pt-16 lg:pt-0">
-      <Reveal>
+    <section id="top" className="pt-8 sm:pt-12 lg:pt-0">
+      <Reveal className="relative z-40 mb-7 flex items-center justify-between gap-4">
         <Image
           src="/aex-logo.png"
           alt="AEX"
           width={64}
           height={64}
           priority
-          className="mb-7 rounded-full border border-border"
+          className="rounded-full border border-border"
         />
+        <SiteControls />
       </Reveal>
       <Reveal delay={60}>
         <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
@@ -104,8 +106,7 @@ export function Identity() {
       </Reveal>
 
       {/* La navegacion vive aqui solo en escritorio: en la columna fija queda
-          siempre a la vista, y el header se queda con ella en pantallas
-          chicas para no repetirla dos veces en el mismo viewport. */}
+          siempre a la vista, y en pantallas chicas pasa al menu junto al logo. */}
       <Reveal delay={200} className="mt-9 hidden lg:block">
         <nav aria-label={t(ui.menuLabel)}>
           <ul className="space-y-1">

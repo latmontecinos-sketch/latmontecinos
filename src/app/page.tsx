@@ -1,4 +1,4 @@
-import { Header } from "@/components/header";
+import { SkipLink } from "@/components/header";
 import { LanguageHint } from "@/components/language-hint";
 import {
   About,
@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <LanguageHint />
-      <Header />
+      <SkipLink />
       {/*
         En escritorio la identidad se va a una columna fija a la izquierda y el
         contenido ocupa el resto del ancho: con una sola columna centrada
@@ -24,7 +24,7 @@ export default function Home() {
       */}
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <div className="lg:grid lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-14 xl:grid-cols-[21rem_minmax(0,1fr)] xl:gap-20">
-          <div className="lg:sticky lg:top-16 lg:h-fit lg:py-16">
+          <div className="lg:sticky lg:top-0 lg:h-fit lg:py-16">
             <Identity />
           </div>
 

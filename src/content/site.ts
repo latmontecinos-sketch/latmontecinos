@@ -350,7 +350,6 @@ export const ui = {
   themeLabel: { es: "Cambiar tema", en: "Toggle theme" } as T,
   langLabel: { es: "Cambiar idioma", en: "Switch language" } as T,
   menuLabel: { es: "Menú", en: "Menu" } as T,
-  portfolioLabel: { es: "Portafolio", en: "Portfolio" } as T,
   builtWith: {
     es: "Hecho con Next.js y Tailwind. Desplegado en Vercel.",
     en: "Built with Next.js and Tailwind. Deployed on Vercel.",
