@@ -6,6 +6,7 @@ import {
   about,
   nav,
   community,
+  contactIntents,
   profile,
   projects,
   type Project,
@@ -528,15 +529,22 @@ export function Contact() {
           <MailIcon />
           {profile.email}
         </a>
-        <a
-          href={socials.telegramDirect}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
-        >
-          <TelegramIcon />
-          Telegram
-        </a>
+      </div>
+
+      <p className="mt-8 text-sm text-muted">{t(ui.contactTelegramHint)}</p>
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        {contactIntents.map((intent) => (
+          <a
+            key={intent.label.es}
+            href={`${socials.telegramDirect}?text=${encodeURIComponent(t(intent.message))}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent"
+          >
+            <TelegramIcon />
+            {t(intent.label)}
+          </a>
+        ))}
       </div>
     </Section>
   );

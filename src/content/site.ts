@@ -52,6 +52,28 @@ export const socials = {
 };
 
 /**
+ * Los dos atajos del final de Contacto. Cada uno abre el chat de Telegram con
+ * el mensaje ya escrito (`?text=` del link de usuario), asi quien llega no
+ * tiene que pensar como empezar y el ya sabe de que va antes de responder.
+ */
+export const contactIntents: { label: T; message: T }[] = [
+  {
+    label: { es: "Quiero trabajar contigo", en: "I want to work with you" },
+    message: {
+      es: "Hola Alejandro, vi tu portafolio y estoy interesado en trabajar contigo.",
+      en: "Hi Alejandro, I saw your portfolio and I'm interested in working with you.",
+    },
+  },
+  {
+    label: { es: "Quiero que desarrolles para mí", en: "I want you to build for me" },
+    message: {
+      es: "Hola Alejandro, vi tu portafolio y quiero que desarrolles un proyecto para mí.",
+      en: "Hi Alejandro, I saw your portfolio and I'd like you to build a project for me.",
+    },
+  },
+];
+
+/**
  * Cifras duras del hero. Dos reglas mandan.
  *
  * Cada una lleva a su prueba: una afirmacion que no se puede verificar en un
@@ -313,6 +335,10 @@ export const ui = {
   contactBody: {
     es: "Estoy disponible para proyectos Web2 y Web3, colaboraciones, bounties y programas de builders. La forma más rápida de llegarme es por correo.",
     en: "I'm available for Web2 and Web3 projects, collaborations, bounties and builder programs. Email is the fastest way to reach me.",
+  } as T,
+  contactTelegramHint: {
+    es: "O escríbeme por Telegram con un mensaje listo:",
+    en: "Or message me on Telegram with a ready-made note:",
   } as T,
   themeLabel: { es: "Cambiar tema", en: "Toggle theme" } as T,
   langLabel: { es: "Cambiar idioma", en: "Switch language" } as T,
