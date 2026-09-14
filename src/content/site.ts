@@ -64,7 +64,7 @@ export const socials = {
  */
 export const proof: { value: T; label: T; href?: string }[] = [
   {
-    value: both("2"),
+    value: both("3"),
     label: {
       es: "herramientas propias en producción",
       en: "of my own tools in production",
@@ -172,10 +172,26 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "Aex Gold/Silver bot",
+    name: "AexApuntes",
     summary: {
-      es: "Bot de Telegram que sigue el ratio Oro/Plata con RSI en 15m, 1h, 4h y 1d. Detecta cruces, divergencias precio/RSI y confluencia entre temporalidades, abre y cierra la posición por su cuenta y numera cada entrada.",
-      en: "Telegram bot tracking the gold/silver ratio with RSI on 15m, 1h, 4h and 1d. It spots crossings, price/RSI divergences and cross-timeframe confluence, opens and closes the position on its own, and numbers every entry.",
+      es: "Convierte videos de YouTube, archivos de video y transcripciones en apuntes de estudio con IA, exportables a HTML y PDF. Corre entero en el navegador con las claves gratis de cada usuario: sin servidor y sin costos.",
+      en: "Turns YouTube videos, video files and transcripts into AI study notes, exportable to HTML and PDF. It runs entirely in the browser on each user's free API keys: no server and no running costs.",
+    },
+    tags: ["JavaScript", "Gemini API", "ffmpeg.wasm"],
+    links: [
+      {
+        label: { es: "Ver en vivo", en: "View live" },
+        href: "https://aexapuntes.vercel.app",
+      },
+    ],
+  },
+  {
+    name: "Aex Gold/Silver bot",
+    // Sin "abre y cierra por su cuenta": el bot dejo de decirlo el 2026-09-10,
+    // sus entradas son un diario simulado, no operaciones reales.
+    summary: {
+      es: "Bot de Telegram que sigue el ratio Oro/Plata con RSI en 15m, 1h, 4h y 1d. Alerta ante terceros toques de zona clave, divergencias precio/RSI y confluencia entre temporalidades, y lleva un diario numerado de cada entrada.",
+      en: "Telegram bot tracking the gold/silver ratio with RSI on 15m, 1h, 4h and 1d. It alerts on third touches of key levels, price/RSI divergences and cross-timeframe confluence, and keeps a numbered journal of every entry.",
     },
     tags: ["TypeScript", "Node", "Telegraf"],
     links: [
@@ -186,13 +202,15 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "perp-dex-tracker",
-    status: { es: "Privado", en: "Private" },
+    // Solo el nombre y que esta en curso: el detalle se publica cuando se
+    // entregue, no antes.
+    name: "Pollar Pass",
+    status: { es: "En desarrollo", en: "In development" },
     summary: {
-      es: "Screener de funding rates y arbitraje cross-asset para DEX de perpetuos.",
-      en: "Funding-rate and cross-asset arbitrage screener for perpetual DEXs.",
+      es: "Proyecto en desarrollo sobre Stellar. Más detalles pronto.",
+      en: "A project in development on Stellar. More details soon.",
     },
-    tags: ["TypeScript", "Node"],
+    tags: ["Stellar", "TypeScript"],
     links: [],
   },
   {
