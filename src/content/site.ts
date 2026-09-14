@@ -46,15 +46,15 @@ export const socials = {
   youtube: "https://www.youtube.com/@AlexCriptomonedas",
   telegramChannel: "https://t.me/AlexCriptoAnuncios",
   telegramCommunity: "https://t.me/+SpY76r8P0s9BhgtO",
-  // Contacto directo, no el grupo: quien quiere escribirle a el no tiene que
-  // caer en una comunidad de 700 personas para hacerlo.
-  telegramDirect: "https://t.me/AlexCriptomonedas",
+  // Contacto directo por WhatsApp (+591 73259109): wa.me pide el numero con
+  // codigo de pais, sin "+" ni espacios.
+  whatsapp: "https://wa.me/59173259109",
 };
 
 /**
- * Los dos atajos del final de Contacto. Cada uno abre el chat de Telegram con
- * el mensaje ya escrito (`?text=` del link de usuario), asi quien llega no
- * tiene que pensar como empezar y el ya sabe de que va antes de responder.
+ * Los dos atajos del final de Contacto. Cada uno abre WhatsApp con el mensaje
+ * ya escrito (`?text=` de wa.me), asi quien llega no tiene que pensar como
+ * empezar y el ya sabe de que va antes de responder.
  */
 export const contactIntents: { label: T; message: T }[] = [
   {
@@ -336,9 +336,9 @@ export const ui = {
     es: "Estoy disponible para proyectos Web2 y Web3, colaboraciones, bounties y programas de builders. La forma más rápida de llegarme es por correo.",
     en: "I'm available for Web2 and Web3 projects, collaborations, bounties and builder programs. Email is the fastest way to reach me.",
   } as T,
-  contactTelegramHint: {
-    es: "O escríbeme por Telegram con un mensaje listo:",
-    en: "Or message me on Telegram with a ready-made note:",
+  contactWhatsAppHint: {
+    es: "O escríbeme por WhatsApp con un mensaje listo:",
+    en: "Or message me on WhatsApp with a ready-made note:",
   } as T,
   themeLabel: { es: "Cambiar tema", en: "Toggle theme" } as T,
   langLabel: { es: "Cambiar idioma", en: "Switch language" } as T,
