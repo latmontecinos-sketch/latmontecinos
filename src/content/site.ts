@@ -29,11 +29,14 @@ const both = (text: string): T => ({ es: text, en: text });
 
 export const profile = {
   name: "Alejandro Tintaya Montecinos",
-  role: both("Web2 & Web3 Developer"),
+  role: {
+    es: "Desarrollador de aplicaciones web, blockchain e IA",
+    en: "Web, Blockchain & AI Application Developer",
+  } as T,
   location: both("La Paz, Bolivia"),
   tagline: {
-    es: "Desarrollo productos web en TypeScript, de la interfaz a la base de datos. Web2 y Web3.",
-    en: "I build web products in TypeScript, from the interface to the database. Web2 and Web3.",
+    es: "Construyo aplicaciones web completas, de la pantalla a la base de datos: plataformas, bots, herramientas con inteligencia artificial y proyectos con pagos y activos digitales.",
+    en: "I build complete web applications, from the screen to the database: platforms, bots, AI-powered tools and projects with payments and digital assets.",
   } as T,
   email: "latmontecinos@gmail.com",
 };
@@ -86,10 +89,12 @@ export const contactIntents: { label: T; message: T }[] = [
  */
 export const proof: { value: T; label: T; href?: string }[] = [
   {
-    value: both("3"),
+    // Lo que ya funciona y lo que esta en curso (Pollar Pass), contado solo
+    // sobre lo listado en Proyectos para que se pueda comprobar ahi mismo.
+    value: { es: "3 en vivo", en: "3 live" },
     label: {
-      es: "herramientas propias en producción",
-      en: "of my own tools in production",
+      es: "+1 en desarrollo · proyectos desplegados",
+      en: "+1 in development · deployed projects",
     },
     // ancla interna: la prueba de esta cifra esta en la misma pagina
     href: "#projects",
@@ -122,7 +127,7 @@ export const nav: { id: string; label: T }[] = [
 ];
 
 export const about: T = {
-  es: `Construyo productos web de punta a punta: interfaz con React y Next.js, backend con Node y una base de datos detrás. Tomo trabajos de Web2 y de Web3 — la base es la misma, con o sin blockchain de por medio.
+  es: `Construyo productos web de punta a punta: interfaz con React y Next.js, backend con Node y una base de datos detrás. Hago tanto apps convencionales (sitios, paneles, bots, herramientas internas) como proyectos sobre blockchain (pagos en cripto, tokens, contratos). También sumo IA donde ahorra trabajo real, como en AexApuntes. La base técnica es la misma; lo que cambia es el problema que resuelve.
 
 Mi terreno fuerte es cripto. Llevo años ahí, la mayor parte como usuario metido en EVM todos los días: DeFi, airdrops, trading. Hace unos meses empecé a construir mis propias herramientas — screeners, bots y contratos — casi siempre en comunidad.
 
@@ -131,7 +136,7 @@ Construyo con vibe coding: me apoyo en IA para escribir el código. Lo que pongo
 Stellar es nuevo para mí y lo estoy aprendiendo de la misma forma: construyendo.
 
 Soy parte del core team de Ethereum Bolivia desde 2023, doy talleres sobre finanzas descentralizadas y charlas universitarias sobre DeFi e IA aplicada.`,
-  en: `I build web products end to end: the interface with React and Next.js, the backend with Node and a database behind it. I take on both Web2 and Web3 work — the foundation is the same, with or without a chain in the middle.
+  en: `I build web products end to end: the interface with React and Next.js, the backend with Node and a database behind it. I do both conventional apps (websites, dashboards, bots, internal tools) and blockchain projects (crypto payments, tokens, contracts). I also add AI where it saves real work, as in AexApuntes. The technical foundation is the same; what changes is the problem it solves.
 
 Crypto is where I go deep. Years in it, mostly as a heavy day-to-day EVM user: DeFi, airdrops, trading. A few months ago I started building my own tools — screeners, bots and contracts — mostly in community.
 
@@ -293,8 +298,8 @@ export const community: CommunityItem[] = [
     org: { es: "Universidades de La Paz", en: "Universities in La Paz" },
     period: { es: "2023 — actualidad", en: "2023 — present" },
     detail: {
-      es: "DeFi e inteligencia artificial aplicada, para estudiantes que recién se acercan a Web3.",
-      en: "DeFi and applied AI, for students taking their first steps into Web3.",
+      es: "DeFi e inteligencia artificial aplicada, para estudiantes que recién se acercan a blockchain.",
+      en: "DeFi and applied AI, for students taking their first steps into blockchain.",
     },
   },
 ];
@@ -311,11 +316,13 @@ export const howIWork: T[] = [
 ];
 
 export const softSkills: T[] = [
+  { es: "Hiperenfoque", en: "Hyperfocus" },
   { es: "Comunicación efectiva", en: "Effective communication" },
-  { es: "Trabajo en equipo", en: "Teamwork" },
   { es: "Resolución de problemas", en: "Problem solving" },
-  { es: "Adaptabilidad", en: "Adaptability" },
   { es: "Pensamiento crítico", en: "Critical thinking" },
+  { es: "Trabajo en equipo", en: "Teamwork" },
+  { es: "Versatilidad y aprendizaje rápido", en: "Versatility and fast learning" },
+  { es: "Autodidacta", en: "Self-taught" },
   { es: "Integridad", en: "Integrity" },
 ];
 
@@ -333,8 +340,8 @@ export const ui = {
   caseStudyClose: { es: "Ocultar el caso", en: "Hide the case" } as T,
   contactTitle: { es: "Hablemos", en: "Let's talk" } as T,
   contactBody: {
-    es: "Estoy disponible para proyectos Web2 y Web3, colaboraciones, bounties y programas de builders. La forma más rápida de llegarme es por correo.",
-    en: "I'm available for Web2 and Web3 projects, collaborations, bounties and builder programs. Email is the fastest way to reach me.",
+    es: "Estoy disponible para desarrollar tu aplicación web o tu proyecto blockchain, colaboraciones, bounties y programas de builders. La forma más rápida de llegarme es por correo.",
+    en: "I'm available to build your web application or blockchain project, and for collaborations, bounties and builder programs. Email is the fastest way to reach me.",
   } as T,
   contactWhatsAppHint: {
     es: "O escríbeme por WhatsApp con un mensaje listo:",
@@ -343,6 +350,7 @@ export const ui = {
   themeLabel: { es: "Cambiar tema", en: "Toggle theme" } as T,
   langLabel: { es: "Cambiar idioma", en: "Switch language" } as T,
   menuLabel: { es: "Menú", en: "Menu" } as T,
+  portfolioLabel: { es: "Portafolio", en: "Portfolio" } as T,
   builtWith: {
     es: "Hecho con Next.js y Tailwind. Desplegado en Vercel.",
     en: "Built with Next.js and Tailwind. Deployed on Vercel.",

@@ -28,7 +28,7 @@ const pageTitle = `${profile.name} — ${profile.role.es}`;
 // Es lo que se lee en Google y al compartir el enlace, asi que sigue al
 // tagline: primero el oficio, despues el terreno donde hay profundidad.
 const description =
-  "Desarrollador en La Paz, Bolivia. Construyo productos web en TypeScript — React, Next.js, Node — en Web2 y Web3. Core team de Ethereum Bolivia.";
+  "Desarrollador de aplicaciones web, blockchain e IA en La Paz, Bolivia. Construyo plataformas, bots, herramientas con IA y proyectos con pagos y activos digitales. Core team de Ethereum Bolivia.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://latmontecinos.vercel.app"),
@@ -43,7 +43,8 @@ export const metadata: Metadata = {
     "TypeScript",
     "React",
     "Next.js",
-    "Web3",
+    "blockchain",
+    "IA",
     "Stellar",
     "Bolivia",
   ],

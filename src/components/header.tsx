@@ -41,6 +41,7 @@ export function Header() {
               los tres controles y termina partiendose en dos lineas. */}
           <span aria-hidden>
             Alejandro Tintaya<span className="hidden sm:inline"> Montecinos</span>
+            <span className="font-medium text-muted"> · {t(ui.portfolioLabel)}</span>
           </span>
         </a>
 
