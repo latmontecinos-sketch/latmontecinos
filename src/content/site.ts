@@ -89,12 +89,12 @@ export const contactIntents: { label: T; message: T }[] = [
  */
 export const proof: { value: T; label: T; href?: string }[] = [
   {
-    // Lo que ya funciona y lo que esta en curso (Pollar Pass), contado solo
+    // Lo que ya funciona y lo que esta en curso (Pollar Pass, Kosmovia), contado solo
     // sobre lo listado en Proyectos para que se pueda comprobar ahi mismo.
-    value: { es: "3 en vivo", en: "3 live" },
+    value: { es: "4 en vivo", en: "4 live" },
     label: {
-      es: "+1 en desarrollo · proyectos desplegados",
-      en: "+1 in development · deployed projects",
+      es: "+2 en desarrollo · proyectos desplegados",
+      en: "+2 in development · deployed projects",
     },
     // ancla interna: la prueba de esta cifra esta en la misma pagina
     href: "#projects",
@@ -107,6 +107,7 @@ export const proof: { value: T; label: T; href?: string }[] = [
   {
     value: both("2026"),
     label: { es: "builder en Stellar Elite Bolivia", en: "builder at Stellar Elite Bolivia" },
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7501454699527684096/",
   },
   {
     value: { es: "6ª ed.", en: "6th ed." },
@@ -127,22 +128,22 @@ export const nav: { id: string; label: T }[] = [
 ];
 
 export const about: T = {
-  es: `Construyo productos web de punta a punta: interfaz con React y Next.js, backend con Node y una base de datos detrás. Hago tanto apps convencionales (sitios, paneles, bots, herramientas internas) como proyectos sobre blockchain (pagos en cripto, tokens, contratos). También sumo IA donde ahorra trabajo real, como en AexApuntes. La base técnica es la misma; lo que cambia es el problema que resuelve.
+  es: `Construyo productos web de punta a punta: interfaz con React y Next.js, backend con Node y una base de datos detrás. Hago tanto apps convencionales (sitios, paneles, bots, herramientas internas) como proyectos sobre blockchain (pagos en cripto, tokens, contratos). También integro inteligencia artificial cuando ahorra trabajo real. La base técnica es la misma; lo que cambia es el problema que resuelve.
 
 Mi terreno fuerte es cripto. Llevo años ahí, la mayor parte como usuario metido en EVM todos los días: DeFi, airdrops, trading. Hace unos meses empecé a construir mis propias herramientas — screeners, bots y contratos — casi siempre en comunidad.
 
 Construyo con vibe coding: me apoyo en IA para escribir el código. Lo que pongo yo es el criterio — años operando y moviéndome en comunidad me dicen qué hace falta de verdad, y por eso lo que sale termina siendo útil y enfocado en mi trabajo, no una demo más.
 
-Stellar es nuevo para mí y lo estoy aprendiendo de la misma forma: construyendo.
+Hoy también construyo sobre Stellar: como builder de Stellar Elite Bolivia desarrollo proyectos en su red, uno de ellos con mi equipo.
 
 Soy parte del core team de Ethereum Bolivia desde 2023, doy talleres sobre finanzas descentralizadas y charlas universitarias sobre DeFi e IA aplicada.`,
-  en: `I build web products end to end: the interface with React and Next.js, the backend with Node and a database behind it. I do both conventional apps (websites, dashboards, bots, internal tools) and blockchain projects (crypto payments, tokens, contracts). I also add AI where it saves real work, as in AexApuntes. The technical foundation is the same; what changes is the problem it solves.
+  en: `I build web products end to end: the interface with React and Next.js, the backend with Node and a database behind it. I do both conventional apps (websites, dashboards, bots, internal tools) and blockchain projects (crypto payments, tokens, contracts). I also build in AI when it saves real work. The technical foundation is the same; what changes is the problem it solves.
 
 Crypto is where I go deep. Years in it, mostly as a heavy day-to-day EVM user: DeFi, airdrops, trading. A few months ago I started building my own tools — screeners, bots and contracts — mostly in community.
 
 I build with vibe coding: I lean on AI to write the code. What I bring is the judgment — years trading and moving in community tell me what is actually needed, which is why what comes out is useful and aimed at my own work rather than one more demo.
 
-Stellar is new to me and I'm learning it the same way: by building.
+Today I also build on Stellar: as a Stellar Elite Bolivia builder I'm developing projects on its network, one of them with my team.
 
 I've been on the Ethereum Bolivia core team since 2023, I run workshops on decentralized finance and give university talks on DeFi and applied AI.`,
 };
@@ -213,6 +214,20 @@ export const projects: Project[] = [
     ],
   },
   {
+    name: "AexBOB",
+    summary: {
+      es: "Comparador en tiempo real del dólar digital (USD/USDT) a bolivianos. Reúne P2P, billeteras y remesas, calcula el precio efectivo con comisiones, lo compara con el tipo de cambio oficial del BCB y marca la mejor opción para comprar y para vender.",
+      en: "Real-time comparator for digital dollars (USD/USDT) to Bolivian bolivianos. It gathers P2P markets, wallets and remittances, works out the effective price after fees, compares it with the Central Bank's official rate and flags the best option to buy and to sell.",
+    },
+    tags: ["TypeScript", "Next.js", "React"],
+    links: [
+      {
+        label: { es: "Ver en vivo", en: "View live" },
+        href: "https://aexbob.vercel.app",
+      },
+    ],
+  },
+  {
     name: "Aex Gold/Silver bot",
     // Sin "abre y cierra por su cuenta": el bot dejo de decirlo el 2026-09-10,
     // sus entradas son un diario simulado, no operaciones reales.
@@ -225,6 +240,22 @@ export const projects: Project[] = [
       {
         label: { es: "Abrir en Telegram", en: "Open in Telegram" },
         href: "https://t.me/Aex_Gold_Silver_bot",
+      },
+    ],
+  },
+  {
+    // Proyecto de equipo en Stellar Elite Bolivia; landing y repo ya son publicos.
+    name: "Kosmovia",
+    status: { es: "En desarrollo", en: "In development" },
+    summary: {
+      es: "Red social para el ecosistema Stellar, construida con mi equipo en Stellar Elite Bolivia: comunidades, un muro y una billetera integrada. En desarrollo, sobre testnet.",
+      en: "A social network for the Stellar ecosystem, built with my team at Stellar Elite Bolivia: communities, a feed and a built-in wallet. In development, on testnet.",
+    },
+    tags: ["Stellar", "Next.js", "Supabase"],
+    links: [
+      {
+        label: { es: "Ver sitio", en: "View site" },
+        href: "https://kosmovia.vercel.app",
       },
     ],
   },
@@ -257,6 +288,16 @@ export const projects: Project[] = [
 ];
 
 export const community: CommunityItem[] = [
+  {
+    title: { es: "Builder seleccionado", en: "Selected builder" },
+    org: both("Stellar Elite Bolivia"),
+    period: { es: "2026 — actualidad", en: "2026 — present" },
+    detail: {
+      es: "Seleccionado para el programa de builders de Stellar en Bolivia. Ahí desarrollo proyectos sobre la red Stellar junto a mi equipo.",
+      en: "Selected for Stellar's builder program in Bolivia, where I develop projects on the Stellar network with my team.",
+    },
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7501454699527684096/",
+  },
   {
     title: both("Core team"),
     org: both("Ethereum Bolivia"),
