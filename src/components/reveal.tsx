@@ -5,6 +5,9 @@ import { useEffect, useRef, type ReactNode } from "react";
 /**
  * Aparece al entrar en pantalla.
  *
+ * Lo que ya está a la vista al cargar no se toca: ocultarlo al hidratar para
+ * volver a mostrarlo lo hacía parpadear y retrasaba el LCP.
+ *
  * El estado se aplica con estilos inline y no con clases: aqui el modo de
  * fallo es contenido invisible, y con reglas en la hoja de estilos basta un
  * conflicto de orden o especificidad para dejar la pagina en blanco. Ademas
@@ -28,6 +31,7 @@ export function Reveal({
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (typeof IntersectionObserver === "undefined") return;
+    if (node.getBoundingClientRect().top < window.innerHeight) return;
 
     node.style.opacity = "0";
     node.style.transform = "translateY(14px)";

@@ -1,7 +1,4 @@
-export type Lang = "es" | "en";
-
-/** Un texto en los dos idiomas del sitio. */
-export type T = Record<Lang, string>;
+import { both, type T } from "./ui";
 
 export type Link = { label: T; href: string };
 
@@ -11,6 +8,8 @@ export type Project = {
   tags: string[];
   status?: T;
   links: Link[];
+  /** Está desplegado y se puede abrir hoy (cuenta para la cifra del hero). */
+  live?: boolean;
   /** Captura del producto en vivo; solo la lleva el proyecto destacado. */
   image?: { src: string; alt: T; width: number; height: number };
   /** Problema, dificultad y uso real: lo que un revisor lee para juzgar criterio. */
@@ -25,19 +24,20 @@ export type CommunityItem = {
   href?: string;
 };
 
-const both = (text: string): T => ({ es: text, en: text });
+/** La URL pública del sitio: la usan metadata, sitemap y robots. */
+export const SITE_URL = "https://latmontecinos.vercel.app";
 
 export const profile = {
   name: "Alejandro Tintaya Montecinos",
   role: {
     es: "Desarrollador de aplicaciones web, blockchain e IA",
     en: "Web, Blockchain & AI Application Developer",
-  } as T,
+  } satisfies T,
   location: both("La Paz, Bolivia"),
   tagline: {
     es: "Construyo aplicaciones web completas, de la pantalla a la base de datos: plataformas, bots, herramientas con inteligencia artificial y proyectos con pagos y activos digitales.",
     en: "I build complete web applications, from the screen to the database: platforms, bots, AI-powered tools and projects with payments and digital assets.",
-  } as T,
+  } satisfies T,
   email: "latmontecinos@gmail.com",
 };
 
@@ -48,7 +48,6 @@ export const socials = {
   x: "https://x.com/AlexCriptoPro",
   youtube: "https://www.youtube.com/@AlexCriptomonedas",
   telegramChannel: "https://t.me/AlexCriptoAnuncios",
-  telegramCommunity: "https://t.me/+SpY76r8P0s9BhgtO",
   // Contacto directo por WhatsApp (+591 73259109): wa.me pide el numero con
   // codigo de pais, sin "+" ni espacios.
   whatsapp: "https://wa.me/59173259109",
@@ -76,57 +75,6 @@ export const contactIntents: { label: T; message: T }[] = [
   },
 ];
 
-/**
- * Cifras duras del hero. Dos reglas mandan.
- *
- * Cada una lleva a su prueba: una afirmacion que no se puede verificar en un
- * clic pesa mucho menos que una que si.
- *
- * Y ninguna es de audiencia. Los suscriptores se ganaron enseñando airdrops y
- * DeFi, no construyendo, asi que arriba de todo dirian "creador de contenido"
- * justo donde la pagina tiene que decir "desarrollador". Esas cifras no se
- * borraron: viven en `community`, que es donde son recorrido y no logro.
- */
-export const proof: { value: T; label: T; href?: string }[] = [
-  {
-    // Lo que ya funciona y lo que esta en curso (Pollar Pass, Kosmovia), contado solo
-    // sobre lo listado en Proyectos para que se pueda comprobar ahi mismo.
-    value: { es: "4 en vivo", en: "4 live" },
-    label: {
-      es: "+2 en desarrollo · proyectos desplegados",
-      en: "+2 in development · deployed projects",
-    },
-    // ancla interna: la prueba de esta cifra esta en la misma pagina
-    href: "#projects",
-  },
-  {
-    value: { es: "3 años", en: "3 years" },
-    label: { es: "core team en Ethereum Bolivia", en: "on the Ethereum Bolivia core team" },
-    href: "https://www.linkedin.com/company/ethereumbo/",
-  },
-  {
-    value: both("2026"),
-    label: { es: "builder en Stellar Elite Bolivia", en: "builder at Stellar Elite Bolivia" },
-    href: "https://www.linkedin.com/feed/update/urn:li:activity:7501454699527684096/",
-  },
-  {
-    value: { es: "6ª ed.", en: "6th ed." },
-    label: {
-      es: "taller de DeFi en Cripto Conferencia",
-      en: "DeFi workshop at Cripto Conferencia",
-    },
-    href: "https://criptoconferencia.net",
-  },
-];
-
-export const nav: { id: string; label: T }[] = [
-  { id: "about", label: { es: "Sobre mí", en: "About" } },
-  { id: "projects", label: { es: "Proyectos", en: "Projects" } },
-  { id: "community", label: { es: "Comunidad", en: "Community" } },
-  { id: "stack", label: { es: "Stack", en: "Stack" } },
-  { id: "contact", label: { es: "Contacto", en: "Contact" } },
-];
-
 export const about: T = {
   es: `Construyo productos web de punta a punta: interfaz con React y Next.js, backend con Node y una base de datos detrás. Hago tanto apps convencionales (sitios, paneles, bots, herramientas internas) como proyectos sobre blockchain (pagos en cripto, tokens, contratos). También integro inteligencia artificial cuando ahorra trabajo real. La base técnica es la misma; lo que cambia es el problema que resuelve.
 
@@ -151,6 +99,7 @@ I've been on the Ethereum Bolivia core team since 2023, I run workshops on decen
 export const projects: Project[] = [
   {
     name: "aexbitrage",
+    live: true,
     summary: {
       es: "Comparador de costo real y screener de arbitraje delta-neutral para 14 exchanges de perpetuos. Compara comisión, slippage y funding en vivo sobre 176 activos, incluidas acciones apalancadas.",
       en: "Real-cost comparator and delta-neutral arbitrage screener across 14 perpetual futures exchanges. Compares fees, slippage and funding live over 176 assets, leveraged equities included.",
@@ -201,6 +150,7 @@ export const projects: Project[] = [
   },
   {
     name: "AexApuntes",
+    live: true,
     summary: {
       es: "Convierte videos de YouTube, archivos de video y transcripciones en apuntes de estudio con IA, exportables a HTML y PDF. Corre entero en el navegador con las claves gratis de cada usuario: sin servidor y sin costos.",
       en: "Turns YouTube videos, video files and transcripts into AI study notes, exportable to HTML and PDF. It runs entirely in the browser on each user's free API keys: no server and no running costs.",
@@ -215,6 +165,7 @@ export const projects: Project[] = [
   },
   {
     name: "AexBOB",
+    live: true,
     summary: {
       es: "Comparador en tiempo real del dólar digital (USD/USDT) a bolivianos. Reúne P2P, billeteras y remesas, calcula el precio efectivo con comisiones, lo compara con el tipo de cambio oficial del BCB y marca la mejor opción para comprar y para vender.",
       en: "Real-time comparator for digital dollars (USD/USDT) to Bolivian bolivianos. It gathers P2P markets, wallets and remittances, works out the effective price after fees, compares it with the Central Bank's official rate and flags the best option to buy and to sell.",
@@ -229,6 +180,7 @@ export const projects: Project[] = [
   },
   {
     name: "Aex Gold/Silver bot",
+    live: true,
     // Sin "abre y cierra por su cuenta": el bot dejo de decirlo el 2026-09-10,
     // sus entradas son un diario simulado, no operaciones reales.
     summary: {
@@ -284,6 +236,52 @@ export const projects: Project[] = [
         href: "https://github.com/latmontecinos-sketch/impetu-docs",
       },
     ],
+  },
+];
+
+const liveCount = projects.filter((p) => p.live).length;
+const inDevelopmentCount = projects.filter((p) => p.status).length;
+
+/**
+ * Cifras duras del hero. Dos reglas mandan.
+ *
+ * Cada una lleva a su prueba: una afirmacion que no se puede verificar en un
+ * clic pesa mucho menos que una que si.
+ *
+ * Y ninguna es de audiencia. Los suscriptores se ganaron enseñando airdrops y
+ * DeFi, no construyendo, asi que arriba de todo dirian "creador de contenido"
+ * justo donde la pagina tiene que decir "desarrollador". Esas cifras no se
+ * borraron: viven en `community`, que es donde son recorrido y no logro.
+ */
+export const proof: { value: T; label: T; href?: string }[] = [
+  {
+    // Se cuenta solo sobre lo listado en Proyectos, para que se pueda
+    // comprobar ahí mismo, y se calcula para que no quede desactualizado.
+    value: { es: `${liveCount} en vivo`, en: `${liveCount} live` },
+    label: {
+      es: `+${inDevelopmentCount} en desarrollo · proyectos desplegados`,
+      en: `+${inDevelopmentCount} in development · deployed projects`,
+    },
+    // ancla interna: la prueba de esta cifra esta en la misma pagina
+    href: "#projects",
+  },
+  {
+    value: { es: "3 años", en: "3 years" },
+    label: { es: "core team en Ethereum Bolivia", en: "on the Ethereum Bolivia core team" },
+    href: "https://www.linkedin.com/company/ethereumbo/",
+  },
+  {
+    value: both("2026"),
+    label: { es: "builder en Stellar Elite Bolivia", en: "builder at Stellar Elite Bolivia" },
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7501454699527684096/",
+  },
+  {
+    value: { es: "6ª ed.", en: "6th ed." },
+    label: {
+      es: "taller de DeFi en Cripto Conferencia",
+      en: "DeFi workshop at Cripto Conferencia",
+    },
+    href: "https://criptoconferencia.net",
   },
 ];
 
@@ -366,33 +364,3 @@ export const softSkills: T[] = [
   { es: "Autodidacta", en: "Self-taught" },
   { es: "Integridad", en: "Integrity" },
 ];
-
-export const ui = {
-  skipToContent: { es: "Ir al contenido", en: "Skip to content" } as T,
-  aboutTitle: { es: "Sobre mí", en: "About" } as T,
-  projectsTitle: { es: "Proyectos", en: "Projects" } as T,
-  communityTitle: { es: "Comunidad y charlas", en: "Community & talks" } as T,
-  stackTitle: both("Stack"),
-  techTitle: { es: "Habilidades técnicas", en: "Technical skills" } as T,
-  howIWorkLabel: { es: "Cómo trabajo", en: "How I work" } as T,
-  stackLearningLabel: { es: "Aprendiendo ahora", en: "Learning right now" } as T,
-  softSkillsLabel: { es: "Habilidades blandas", en: "Soft skills" } as T,
-  caseStudyOpen: { es: "Leer el caso", en: "Read the case" } as T,
-  caseStudyClose: { es: "Ocultar el caso", en: "Hide the case" } as T,
-  contactTitle: { es: "Hablemos", en: "Let's talk" } as T,
-  contactBody: {
-    es: "Estoy disponible para desarrollar tu aplicación web o tu proyecto blockchain, colaboraciones, bounties y programas de builders. La forma más rápida de llegarme es por correo.",
-    en: "I'm available to build your web application or blockchain project, and for collaborations, bounties and builder programs. Email is the fastest way to reach me.",
-  } as T,
-  contactWhatsAppHint: {
-    es: "O escríbeme por WhatsApp con un mensaje listo:",
-    en: "Or message me on WhatsApp with a ready-made note:",
-  } as T,
-  themeLabel: { es: "Cambiar tema", en: "Toggle theme" } as T,
-  langLabel: { es: "Cambiar idioma", en: "Switch language" } as T,
-  menuLabel: { es: "Menú", en: "Menu" } as T,
-  builtWith: {
-    es: "Hecho con Next.js y Tailwind. Desplegado en Vercel.",
-    en: "Built with Next.js and Tailwind. Deployed on Vercel.",
-  } as T,
-};

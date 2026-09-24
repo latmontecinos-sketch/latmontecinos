@@ -1,5 +1,11 @@
 import { ImageResponse } from "next/og";
 import { profile, proof } from "@/content/site";
+import { palette } from "@/content/theme";
+
+const c = palette.dark;
+// El nombre en dos líneas: el apellido materno abajo.
+const splitAt = profile.name.lastIndexOf(" ");
+const nameLines = [profile.name.slice(0, splitAt), profile.name.slice(splitAt + 1)];
 
 export const alt = `${profile.name} — ${profile.role.es}`;
 export const size = { width: 1200, height: 630 };
@@ -17,7 +23,7 @@ export default function OpengraphImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          background: "#0b0a08",
+          background: c.bg,
           padding: "64px 72px",
           justifyContent: "space-between",
         }}
@@ -28,7 +34,7 @@ export default function OpengraphImage() {
               display: "flex",
               fontSize: 22,
               letterSpacing: 5,
-              color: "#e8b84b",
+              color: c.accent,
               fontWeight: 700,
             }}
           >
@@ -42,35 +48,21 @@ export default function OpengraphImage() {
               marginTop: 22,
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                fontSize: 76,
-                fontWeight: 700,
-                color: "#f3f0e8",
-                lineHeight: 1.06,
-              }}
-            >
-              Alejandro Tintaya
-            </div>
-            <div
-              style={{
-                display: "flex",
-                fontSize: 76,
-                fontWeight: 700,
-                color: "#f3f0e8",
-                lineHeight: 1.06,
-              }}
-            >
-              Montecinos
-            </div>
+            {nameLines.map((line) => (
+              <div
+                key={line}
+                style={{ display: "flex", fontSize: 76, fontWeight: 700, color: c.text, lineHeight: 1.06 }}
+              >
+                {line}
+              </div>
+            ))}
           </div>
 
           <div
             style={{
               display: "flex",
               fontSize: 27,
-              color: "#9c9385",
+              color: c.muted,
               marginTop: 24,
               maxWidth: 900,
             }}
@@ -83,7 +75,7 @@ export default function OpengraphImage() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            borderTop: "2px solid #2a251e",
+            borderTop: `2px solid ${c.border}`,
             paddingTop: 26,
           }}
         >
@@ -97,13 +89,13 @@ export default function OpengraphImage() {
                   display: "flex",
                   fontSize: 34,
                   fontWeight: 700,
-                  color: "#e8b84b",
+                  color: c.accent,
                 }}
               >
                 {item.value.es}
               </div>
               <div
-                style={{ display: "flex", fontSize: 17, color: "#9c9385", marginTop: 4 }}
+                style={{ display: "flex", fontSize: 17, color: c.muted, marginTop: 4 }}
               >
                 {item.label.es}
               </div>

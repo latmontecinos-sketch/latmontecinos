@@ -18,7 +18,8 @@ import {
   siTypescript,
   siVercel,
 } from "simple-icons";
-import type { T } from "./site";
+import type { T } from "./ui";
+import { palette } from "./theme";
 
 export type Tech = { name: string; path: string; color: string };
 
@@ -29,9 +30,9 @@ export type Tech = { name: string; path: string; color: string };
  * 1.2:1 — practicamente invisibles. Con la ficha oscura todos se leen igual.
  *
  * Por lo mismo, las marcas casi negras (Next.js, GitHub, Vercel, Ethereum) se
- * pintan en claro fijo y no con el color del tema.
+ * pintan en claro fijo sobre la ficha.
  */
-const THEMED = "#f3f0e8";
+const LIGHT_ON_CHIP = palette.dark.text;
 
 const icon = (
   i: { title: string; path: string; hex: string },
@@ -54,7 +55,7 @@ export const techGroups: { title: T; note: T; items: Tech[] }[] = [
     note: { es: "Interfaces y producto", en: "Interfaces and product" },
     items: [
       icon(siReact),
-      icon(siNextdotjs, "Next.js", THEMED),
+      icon(siNextdotjs, "Next.js", LIGHT_ON_CHIP),
       icon(siTailwindcss, "Tailwind"),
     ],
   },
@@ -72,10 +73,10 @@ export const techGroups: { title: T; note: T; items: Tech[] }[] = [
     title: { es: "Web3", en: "Web3" },
     note: { es: "Contratos, bots y wallets sobre EVM", en: "Contracts, bots and wallets on EVM" },
     items: [
-      icon(siEthereum, "EVM", THEMED),
+      icon(siEthereum, "EVM", LIGHT_ON_CHIP),
       // #363636 y #2535A0 sobre la ficha oscura quedan por debajo de 2:1
-      icon(siSolidity, "Solidity", THEMED),
-      icon(siEthers, "ethers.js", THEMED),
+      icon(siSolidity, "Solidity", LIGHT_ON_CHIP),
+      icon(siEthers, "ethers.js", LIGHT_ON_CHIP),
       icon(siOpenzeppelin, "OpenZeppelin"),
       icon(siStellar),
     ],
@@ -85,8 +86,8 @@ export const techGroups: { title: T; note: T; items: Tech[] }[] = [
     note: { es: "Versiones, despliegue y bots", en: "Versions, deploys and bots" },
     items: [
       icon(siGit),
-      icon(siGithub, "GitHub", THEMED),
-      icon(siVercel, "Vercel", THEMED),
+      icon(siGithub, "GitHub", LIGHT_ON_CHIP),
+      icon(siVercel, "Vercel", LIGHT_ON_CHIP),
       icon(siTelegram),
     ],
   },

@@ -6,13 +6,18 @@ const GLYPHS = "01{}[]()<>/*+=;:$_.#|→λ∑◇01abcdef";
 const COLUMN_WIDTH = 24;
 const FONT_SIZE = 16;
 const TRAIL = 9;
+// Tope de cuadros por segundo: la lluvia es lenta y no gana nada a 60 o 120 fps,
+// pero cuesta el doble o el cuádruple de batería.
+const FPS = 24;
+const FRAME_MS = 1000 / FPS;
 
 /**
  * Lluvia de codigo detras del contenido. Dos reglas mandan sobre lo estetico:
  * el texto de encima tiene que seguir cumpliendo contraste AA, asi que se
  * dibuja con alpha muy bajo; y no puede costar bateria, asi que se detiene
  * cuando la pestaña no esta visible y no arranca si el usuario pidio menos
- * movimiento.
+ * movimiento. Además va a 24 fps y avanza según el tiempo, no según los
+ * cuadros: en una pantalla de 120 Hz caía al doble de velocidad.
  */
 export function CodeBackdrop() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -30,8 +35,8 @@ export function CodeBackdrop() {
     let width = 0;
     let height = 0;
     let columns: { y: number; speed: number }[] = [];
-    let frame = 0;
     let raf = 0;
+    let last = 0;
     let running = true;
 
     const readInk = () => {
@@ -59,6 +64,9 @@ export function CodeBackdrop() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      // Cambiar el tamaño del canvas reinicia su estado: la fuente se fija aquí, una vez.
+      ctx.font = `${FONT_SIZE}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+      ctx.textBaseline = "top";
 
       const count = Math.ceil(width / COLUMN_WIDTH);
       columns = Array.from({ length: count }, () => ({
@@ -68,24 +76,29 @@ export function CodeBackdrop() {
       ({ ink, accent, boost } = readInk());
     };
 
-    const draw = () => {
+    const draw = (now: number) => {
       if (!running) return;
-      frame++;
+      raf = requestAnimationFrame(draw);
+      const elapsed = now - last;
+      if (elapsed < FRAME_MS) return;
+      // Pasos equivalentes a los de 60 fps, con tope por si la pestaña estuvo congelada.
+      const steps = Math.min(elapsed / (1000 / 60), 10);
+      last = now;
+      // Los glifos cambian cada ~0,5 s, igual que antes del tope de fps.
+      const tick = Math.floor(now / 533);
 
       ctx.clearRect(0, 0, width, height);
-      ctx.font = `${FONT_SIZE}px ui-monospace, SFMono-Regular, Menlo, monospace`;
-      ctx.textBaseline = "top";
 
       columns.forEach((column, index) => {
         const x = index * COLUMN_WIDTH + 6;
-        column.y += column.speed;
+        column.y += column.speed * steps;
         if (column.y > height + 120) column.y = -Math.random() * 260;
 
         // Una estela corta por columna: la cabeza algo mas visible que la cola.
         for (let step = 0; step < TRAIL; step++) {
           const y = column.y - step * (FONT_SIZE + 5);
           if (y < -FONT_SIZE || y > height) continue;
-          const glyph = GLYPHS[(index * 7 + step * 3 + (frame >> 5)) % GLYPHS.length];
+          const glyph = GLYPHS[(index * 7 + step * 3 + tick) % GLYPHS.length];
           // La cabeza de cada estela va en el dorado de la marca y se apaga
           // hacia la cola; el techo de alpha lo fija la legibilidad, no el gusto.
           ctx.globalAlpha = (step === 0 ? 0.72 : 0.44 - step * 0.045) * boost;
@@ -95,7 +108,6 @@ export function CodeBackdrop() {
       });
 
       ctx.globalAlpha = 1;
-      raf = requestAnimationFrame(draw);
     };
 
     const onVisibility = () => {
@@ -139,9 +151,8 @@ export function CodeBackdrop() {
     >
       <canvas ref={canvasRef} className="block h-full w-full" />
       {/* Difumina la lluvia hacia el centro para que nunca compita con el
-          texto que queda en la zona de lectura. El nucleo opaco se achico de
-          52% a 49%: la caida se ve mas, y la columna de lectura sigue tapada
-          porque el degradado nunca deja pasar el glifo entero donde hay texto. */}
+          texto de la zona de lectura: el degradado no deja pasar un glifo
+          entero donde hay texto. */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_74%_70%_at_center,var(--bg)_49%,transparent_100%)]" />
     </div>
   );

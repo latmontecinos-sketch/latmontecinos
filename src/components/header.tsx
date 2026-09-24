@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { nav, ui } from "@/content/site";
+import { nav, ui } from "@/content/ui";
 import { useSite } from "@/components/providers";
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "@/components/icons";
+import { Tr } from "@/components/tr";
 
 // 44px es el minimo tactil de Apple HIG / 48dp de Material: por debajo de eso
 // los controles se fallan con el pulgar en movil.
@@ -74,7 +75,7 @@ export function SiteControls() {
                 onClick={() => setMenuOpen(false)}
                 className="flex h-11 items-center rounded-xl px-3 font-mono text-xs uppercase tracking-[0.14em] text-muted transition-colors hover:bg-surface hover:text-text"
               >
-                {t(item.label)}
+                <Tr value={item.label} />
               </a>
             </li>
           ))}
@@ -85,13 +86,12 @@ export function SiteControls() {
 }
 
 export function SkipLink() {
-  const { t } = useSite();
   return (
     <a
       href="#main-content"
       className="sr-only focus:not-sr-only focus:fixed focus:left-5 focus:top-3 focus:z-50 focus:rounded-full focus:bg-accent focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-bg"
     >
-      {t(ui.skipToContent)}
+      <Tr value={ui.skipToContent} />
     </a>
   );
 }

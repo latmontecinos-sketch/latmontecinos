@@ -51,7 +51,14 @@ body {
   color: var(--text);
 }
 
-/* El cambio de tema no debe animar cada nodo de la página. */
+/* Los textos van en los dos idiomas (ver components/tr.tsx); se ve el que
+   marca <html lang>, que el script inicial fija antes del primer pintado. */
+html:not([lang="en"]) [data-lang="en"],
+html[lang="en"] [data-lang="es"] {
+  display: none !important;
+}
+
+/* Quien pidió menos movimiento: sin scroll suave ni animaciones. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

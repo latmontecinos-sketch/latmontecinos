@@ -1,27 +1,29 @@
-"use client";
-
+// Las secciones de la página. Son componentes de servidor: los textos van en
+// los dos idiomas (<Tr>) y el CSS muestra el activo, así que el contenido no
+// viaja en el JavaScript. Solo son cliente los controles, la navegación de
+// escritorio, la captura del proyecto y la animación de entrada.
 import type { ReactNode } from "react";
-import Image from "next/image";
 import {
   about,
-  nav,
   community,
   contactIntents,
+  howIWork,
   profile,
   projects,
-  type Project,
   proof,
   socials,
-  howIWork,
-  stackLearning,
   softSkills,
-  ui,
+  stackLearning,
+  type Project,
 } from "@/content/site";
-import { useSite } from "@/components/providers";
-import { Reveal } from "@/components/reveal";
-import { SiteControls } from "@/components/header";
+import { ui, type T } from "@/content/ui";
 import { techGroups } from "@/content/tech";
-import { useActiveSection } from "@/components/use-active-section";
+import { palette } from "@/content/theme";
+import { DesktopNav } from "@/components/desktop-nav";
+import { SiteControls } from "@/components/header";
+import { ProjectImage } from "@/components/project-image";
+import { Reveal } from "@/components/reveal";
+import { ForLang, Tr } from "@/components/tr";
 import {
   ArrowIcon,
   GitHubIcon,
@@ -32,24 +34,17 @@ import {
   XIcon,
   YouTubeIcon,
 } from "@/components/icons";
+import Image from "next/image";
 
-function Section({
-  id,
-  index,
-  title,
-  children,
-}: {
-  id: string;
-  index: string;
-  title: string;
-  children: ReactNode;
-}) {
+function Section({ id, index, title, children }: { id: string; index: string; title: T; children: ReactNode }) {
   return (
     <section id={id} className="scroll-mt-8 border-t border-border py-14 sm:py-16">
       <Reveal>
         <h2 className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-accent">
-          <span aria-hidden className="text-muted">{index}</span>
-          {title}
+          <span aria-hidden className="text-muted">
+            {index}
+          </span>
+          <Tr value={title} />
         </h2>
       </Reveal>
       <Reveal delay={90} className="mt-7">
@@ -59,8 +54,7 @@ function Section({
   );
 }
 
-// GitHub y LinkedIn primero: en un portafolio de coder son los dos destinos
-// que alguien evaluando abre, y estaban detras de YouTube.
+// GitHub y LinkedIn primero: son los dos destinos que abre alguien evaluando a un desarrollador.
 const socialLinks = [
   { href: socials.github, label: "GitHub", Icon: GitHubIcon },
   { href: socials.linkedin, label: "LinkedIn", Icon: LinkedInIcon },
@@ -69,15 +63,10 @@ const socialLinks = [
   { href: socials.telegramChannel, label: "Telegram", Icon: TelegramIcon },
 ];
 
-const NAV_IDS = nav.map((item) => item.id);
-
 export function Identity() {
-  const { t } = useSite();
-  const active = useActiveSection(NAV_IDS);
-
   return (
     <section id="top" className="pt-8 sm:pt-12 lg:pt-0">
-      <Reveal className="relative z-40 mb-7 flex items-center justify-between gap-4">
+      <div className="relative z-40 mb-7 flex items-center justify-between gap-4">
         <Image
           src="/aex-logo.png"
           alt="AEX"
@@ -87,61 +76,27 @@ export function Identity() {
           className="rounded-full border border-border"
         />
         <SiteControls />
-      </Reveal>
-      <Reveal delay={60}>
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-          {t(profile.role)}
-        </p>
-        <h1 className="mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight text-text sm:text-5xl lg:text-[2.6rem] xl:text-5xl">
-          {profile.name}
-        </h1>
-      </Reveal>
-      <Reveal delay={140}>
-        <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted lg:text-base">
-          {t(profile.tagline)}
-        </p>
-        <p className="mt-4 font-mono text-xs text-muted">
-          {t(profile.location)}
-        </p>
-      </Reveal>
+      </div>
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+        <Tr value={profile.role} />
+      </p>
+      <h1 className="mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight text-text sm:text-5xl lg:text-[2.6rem] xl:text-5xl">
+        {profile.name}
+      </h1>
+      <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted lg:text-base">
+        <Tr value={profile.tagline} />
+      </p>
+      <p className="mt-4 font-mono text-xs text-muted">
+        <Tr value={profile.location} />
+      </p>
 
-      {/* La navegacion vive aqui solo en escritorio: en la columna fija queda
-          siempre a la vista, y en pantallas chicas pasa al menu junto al logo. */}
-      <Reveal delay={200} className="mt-9 hidden lg:block">
-        <nav aria-label={t(ui.menuLabel)}>
-          <ul className="space-y-1">
-            {nav.map((item, i) => {
-              const current = active === item.id;
-              return (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    aria-current={current ? "true" : undefined}
-                    className={`group flex items-center gap-3 py-1.5 font-mono text-xs uppercase tracking-[0.14em] transition-colors ${
-                      current ? "text-text" : "text-muted hover:text-text"
-                    }`}
-                  >
-                    <span
-                      aria-hidden
-                      className={`h-px transition-all ${
-                        current
-                          ? "w-10 bg-accent"
-                          : "w-6 bg-border group-hover:w-10 group-hover:bg-accent"
-                      }`}
-                    />
-                    <span className="text-accent/70">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    {t(item.label)}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </Reveal>
+      {/* En escritorio la navegación vive en esta columna fija; en pantallas
+          chicas pasa al menú junto al logo. */}
+      <div className="mt-9 hidden lg:block">
+        <DesktopNav />
+      </div>
 
-      <Reveal delay={240} className="mt-9 flex flex-wrap items-center gap-3">
+      <div className="mt-9 flex flex-wrap items-center gap-3">
         <a
           href={`mailto:${profile.email}`}
           className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 font-mono text-xs font-semibold text-bg transition-opacity hover:opacity-90"
@@ -149,9 +104,9 @@ export function Identity() {
           <MailIcon />
           {profile.email}
         </a>
-      </Reveal>
+      </div>
 
-      <Reveal delay={300} className="mt-4 flex flex-wrap items-center gap-2">
+      <div className="mt-4 flex flex-wrap items-center gap-2">
         {socialLinks.map(({ href, label, Icon }) => (
           <a
             key={label}
@@ -165,52 +120,42 @@ export function Identity() {
             <Icon />
           </a>
         ))}
-      </Reveal>
+      </div>
     </section>
   );
 }
 
 export function ProofBar() {
-  const { t } = useSite();
-
   return (
     <dl className="grid grid-cols-2 gap-x-6 gap-y-7 pb-2 pt-12 sm:grid-cols-4 lg:pt-0">
       {proof.map((item) => {
-        const value = (
-          <dt className="font-display text-2xl font-bold tracking-tight text-text transition-colors sm:text-3xl">
-            {t(item.value)}
-          </dt>
+        const content = (
+          <>
+            <dt className="font-display text-2xl font-bold tracking-tight text-text transition-colors group-hover:text-accent sm:text-3xl">
+              <Tr value={item.value} />
+            </dt>
+            <dd className="mt-1 text-xs leading-snug text-muted">
+              <Tr value={item.label} />
+            </dd>
+          </>
         );
-        const label = (
-          <dd className="mt-1 text-xs leading-snug text-muted">
-            {t(item.label)}
-          </dd>
-        );
-
-        // Una cifra comprobable en un clic pesa mucho mas que una que hay que
-        // creer, asi que cada dato con fuente publica va enlazado a su prueba.
-        // Cuando la prueba esta en esta misma pagina el enlace es un ancla, y
-        // abrirla en pestaña nueva seria absurdo.
+        // Cada cifra con fuente pública va enlazada a su prueba. Si la prueba
+        // está en esta misma página, el enlace es un ancla y no abre pestaña.
         const external = !item.href?.startsWith("#");
-
-        return item.href ? (
-          <div key={t(item.label)} className="group">
-            <a
-              href={item.href}
-              target={external ? "_blank" : undefined}
-              rel={external ? "noopener noreferrer" : undefined}
-              className="block"
-            >
-              <span className="block group-hover:text-accent [&>dt]:group-hover:text-accent">
-                {value}
-                {label}
-              </span>
-            </a>
-          </div>
-        ) : (
-          <div key={t(item.label)}>
-            {value}
-            {label}
+        return (
+          <div key={item.label.es} className="group">
+            {item.href ? (
+              <a
+                href={item.href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className="block"
+              >
+                {content}
+              </a>
+            ) : (
+              content
+            )}
           </div>
         );
       })}
@@ -219,36 +164,28 @@ export function ProofBar() {
 }
 
 export function About() {
-  const { t } = useSite();
-
   return (
-    <Section id="about" index="01" title={t(ui.aboutTitle)}>
-      <div className="max-w-2xl space-y-4 text-base leading-relaxed text-muted">
-        {t(about)
-          .split("\n\n")
-          .map((paragraph) => (
+    <Section id="about" index="01" title={ui.aboutTitle}>
+      {(["es", "en"] as const).map((lang) => (
+        <ForLang key={lang} lang={lang} className="max-w-2xl space-y-4 text-base leading-relaxed text-muted">
+          {about[lang].split("\n\n").map((paragraph) => (
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>
           ))}
-      </div>
+        </ForLang>
+      ))}
     </Section>
   );
 }
 
 function ProjectTitle({ project, large }: { project: Project; large?: boolean }) {
-  const { t } = useSite();
-
   return (
     <div className="flex items-center gap-2.5">
-      <h3
-        className={`font-display font-semibold text-text ${
-          large ? "text-xl sm:text-2xl" : "text-lg"
-        }`}
-      >
+      <h3 className={`font-display font-semibold text-text ${large ? "text-xl sm:text-2xl" : "text-lg"}`}>
         {project.name}
       </h3>
       {project.status ? (
         <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-medium text-accent">
-          {t(project.status)}
+          <Tr value={project.status} />
         </span>
       ) : null}
     </div>
@@ -256,16 +193,11 @@ function ProjectTitle({ project, large }: { project: Project; large?: boolean })
 }
 
 function ProjectMeta({ project }: { project: Project }) {
-  const { t } = useSite();
-
   return (
     <>
       <ul className="mt-4 flex flex-wrap gap-1.5">
         {project.tags.map((tag) => (
-          <li
-            key={tag}
-            className="rounded-md bg-surface-2 px-2 py-1 text-[11px] text-muted"
-          >
+          <li key={tag} className="rounded-md bg-surface-2 px-2 py-1 text-[11px] text-muted">
             {tag}
           </li>
         ))}
@@ -281,7 +213,7 @@ function ProjectMeta({ project }: { project: Project }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
             >
-              {t(link.label)}
+              <Tr value={link.label} />
               <ArrowIcon className="h-3.5 w-3.5" />
             </a>
           ))}
@@ -292,66 +224,47 @@ function ProjectMeta({ project }: { project: Project }) {
 }
 
 export function Projects() {
-  const { t } = useSite();
-  // El primero es el proyecto ancla: esta vivo y se puede abrir y probar, asi
-  // que se lleva la captura y el ancho completo. Darle a los tres el mismo
-  // peso desperdiciaba justo el unico que un revisor puede comprobar.
+  // El primero es el proyecto ancla: está vivo y se puede probar, así que se
+  // lleva la captura y el ancho completo.
   const [featured, ...rest] = projects;
 
   return (
-    <Section id="projects" index="02" title={t(ui.projectsTitle)}>
+    <Section id="projects" index="02" title={ui.projectsTitle}>
       <article className="overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-accent/60">
         {featured.image ? (
-          <a
-            href={featured.links[0]?.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block border-b border-border"
-          >
-            <Image
-              src={featured.image.src}
-              alt={t(featured.image.alt)}
-              width={featured.image.width}
-              height={featured.image.height}
-              // Next la marca como elemento LCP: en escritorio cae justo en el
-              // borde del primer viewport, asi que se pide con prioridad en vez
-              // de esperar al lazy load.
-              priority
-              sizes="(min-width: 1024px) 780px, 100vw"
-              // A tamaño completo la captura ocupaba casi toda la pantalla y
-              // empujaba el resto fuera de vista; recortada a banner se lee
-              // como vista previa y no como la pagina embebida.
-              className="aspect-[2/1] w-full object-cover object-top"
-            />
+          <a href={featured.links[0]?.href} target="_blank" rel="noopener noreferrer" className="block border-b border-border">
+            <ProjectImage image={featured.image} />
           </a>
         ) : null}
         <div className="p-5 sm:p-6">
           <ProjectTitle project={featured} large />
           <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted">
-            {t(featured.summary)}
+            <Tr value={featured.summary} />
           </p>
 
           {featured.caseStudy ? (
+            // <details> nativo: el caso queda plegado para quien escanea y
+            // disponible para quien quiere profundidad, sin depender de JS.
             <details className="group mt-5 border-t border-border pt-4">
-              {/* <details> nativo: el caso queda plegado para quien escanea y
-                  disponible para quien quiere profundidad, sin depender de JS. */}
               <summary className="inline-flex cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-accent hover:underline">
                 <span className="transition-transform group-open:rotate-90" aria-hidden>
                   ▸
                 </span>
-                <span className="group-open:hidden">{t(ui.caseStudyOpen)}</span>
+                <span className="group-open:hidden">
+                  <Tr value={ui.caseStudyOpen} />
+                </span>
                 <span className="hidden group-open:inline">
-                  {t(ui.caseStudyClose)}
+                  <Tr value={ui.caseStudyClose} />
                 </span>
               </summary>
               <div className="mt-5 max-w-2xl space-y-5">
                 {featured.caseStudy.map((block) => (
-                  <div key={t(block.heading)}>
+                  <div key={block.heading.es}>
                     <h4 className="font-mono text-xs uppercase tracking-[0.14em] text-text">
-                      {t(block.heading)}
+                      <Tr value={block.heading} />
                     </h4>
                     <p className="mt-2 text-sm leading-relaxed text-muted">
-                      {t(block.body)}
+                      <Tr value={block.body} />
                     </p>
                   </div>
                 ))}
@@ -371,7 +284,7 @@ export function Projects() {
           >
             <ProjectTitle project={project} />
             <p className="mt-2.5 flex-1 text-sm leading-relaxed text-muted">
-              {t(project.summary)}
+              <Tr value={project.summary} />
             </p>
             <ProjectMeta project={project} />
           </li>
@@ -382,36 +295,30 @@ export function Projects() {
 }
 
 export function Community() {
-  const { t } = useSite();
-
   return (
-    <Section id="community" index="03" title={t(ui.communityTitle)}>
+    <Section id="community" index="03" title={ui.communityTitle}>
       <ul className="space-y-6">
         {community.map((item) => (
-          <li
-            key={t(item.org) + t(item.title)}
-            className="grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-6"
-          >
-            <p className="text-sm text-muted">{t(item.period)}</p>
+          <li key={item.org.es + item.title.es} className="grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-6">
+            <p className="text-sm text-muted">
+              <Tr value={item.period} />
+            </p>
             <div>
               <h3 className="font-medium text-text">
-                {t(item.title)}
+                <Tr value={item.title} />
                 <span className="text-muted"> · </span>
                 {item.href ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent hover:underline"
-                  >
-                    {t(item.org)}
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                    <Tr value={item.org} />
                   </a>
                 ) : (
-                  <span className="text-muted">{t(item.org)}</span>
+                  <span className="text-muted">
+                    <Tr value={item.org} />
+                  </span>
                 )}
               </h3>
               <p className="mt-1 text-sm leading-relaxed text-muted">
-                {t(item.detail)}
+                <Tr value={item.detail} />
               </p>
             </div>
           </li>
@@ -421,39 +328,47 @@ export function Community() {
   );
 }
 
-export function Stack() {
-  const { t } = useSite();
-
+function Bullets({ items, className }: { items: T[]; className: string }) {
   return (
-    <Section id="stack" index="04" title={t(ui.stackTitle)}>
-      {/* Rejilla por categoria con los logos de cada tecnologia: se escanea de
-          un vistazo, mientras que la lista de chips habia que leerla entera. */}
-      <p className="text-sm font-medium text-text">{t(ui.techTitle)}</p>
+    <ul className={className}>
+      {items.map((item) => (
+        <li key={item.es} className="flex items-baseline gap-2 text-sm text-muted">
+          <span aria-hidden className="text-accent">
+            ✦
+          </span>
+          <Tr value={item} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function Stack() {
+  return (
+    <Section id="stack" index="04" title={ui.stackTitle}>
+      <p className="text-sm font-medium text-text">
+        <Tr value={ui.techTitle} />
+      </p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {techGroups.map((group) => (
-          <div
-            key={t(group.title)}
-            className="rounded-xl border border-border bg-surface p-4"
-          >
+          <div key={group.title.es} className="rounded-xl border border-border bg-surface p-4">
             <h3 className="font-mono text-xs uppercase tracking-[0.14em] text-text">
-              {t(group.title)}
+              <Tr value={group.title} />
             </h3>
-            <p className="mt-1 text-xs text-muted">{t(group.note)}</p>
+            <p className="mt-1 text-xs text-muted">
+              <Tr value={group.note} />
+            </p>
             <ul className="mt-4 flex flex-wrap gap-2">
               {group.items.map((tech) => (
                 <li
                   key={tech.name}
-                  className="flex w-[4.75rem] flex-col items-center gap-2 rounded-lg border border-white/10 bg-[#17150f] px-2 py-3 text-center"
+                  className="flex w-[4.75rem] flex-col items-center gap-2 rounded-lg border border-white/10 px-2 py-3 text-center"
+                  style={{ backgroundColor: palette.chip }}
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden
-                    className="h-6 w-6 shrink-0"
-                    style={{ fill: tech.color }}
-                  >
+                  <svg viewBox="0 0 24 24" aria-hidden className="h-6 w-6 shrink-0" style={{ fill: tech.color }}>
                     <path d={tech.path} />
                   </svg>
-                  <span className="font-mono text-[10px] leading-tight text-[#9c9385]">
+                  <span className="font-mono text-[10px] leading-tight" style={{ color: palette.dark.muted }}>
                     {tech.name}
                   </span>
                 </li>
@@ -463,24 +378,13 @@ export function Stack() {
         ))}
       </div>
 
-      {/* Declarado, no escondido: como se construye pesa tanto como con que. */}
-      <p className="mt-9 text-sm font-medium text-text">{t(ui.howIWorkLabel)}</p>
-      <ul className="mt-3 space-y-2">
-        {howIWork.map((item) => (
-          <li
-            key={t(item)}
-            className="flex items-baseline gap-2 text-sm text-muted"
-          >
-            <span aria-hidden className="text-accent">
-              ✦
-            </span>
-            {t(item)}
-          </li>
-        ))}
-      </ul>
+      <p className="mt-9 text-sm font-medium text-text">
+        <Tr value={ui.howIWorkLabel} />
+      </p>
+      <Bullets items={howIWork} className="mt-3 space-y-2" />
 
       <p className="mt-9 text-sm font-medium text-text">
-        {t(ui.stackLearningLabel)}
+        <Tr value={ui.stackLearningLabel} />
       </p>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {stackLearning.map((item) => (
@@ -493,35 +397,19 @@ export function Stack() {
         ))}
       </div>
 
-      {/* Van aqui y no en una seccion propia: son habilidades igual que el
-          resto del bloque, y una entrada mas en el nav lo dejaria apretado. */}
       <p className="mt-9 text-sm font-medium text-text">
-        {t(ui.softSkillsLabel)}
+        <Tr value={ui.softSkillsLabel} />
       </p>
-      <ul className="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2">
-        {softSkills.map((skill) => (
-          <li
-            key={t(skill)}
-            className="flex items-baseline gap-2 text-sm text-muted"
-          >
-            <span aria-hidden className="text-accent">
-              ✦
-            </span>
-            {t(skill)}
-          </li>
-        ))}
-      </ul>
+      <Bullets items={softSkills} className="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2" />
     </Section>
   );
 }
 
 export function Contact() {
-  const { t } = useSite();
-
   return (
-    <Section id="contact" index="05" title={t(ui.contactTitle)}>
+    <Section id="contact" index="05" title={ui.contactTitle}>
       <p className="max-w-xl text-base leading-relaxed text-muted">
-        {t(ui.contactBody)}
+        <Tr value={ui.contactBody} />
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <a
@@ -533,35 +421,43 @@ export function Contact() {
         </a>
       </div>
 
-      <p className="mt-8 text-sm text-muted">{t(ui.contactWhatsAppHint)}</p>
+      <p className="mt-8 text-sm text-muted">
+        <Tr value={ui.contactWhatsAppHint} />
+      </p>
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        {contactIntents.map((intent) => (
-          <a
-            key={intent.label.es}
-            href={`${socials.whatsapp}?text=${encodeURIComponent(t(intent.message))}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent"
-          >
-            <WhatsAppIcon />
-            {t(intent.label)}
-          </a>
-        ))}
+        {/* El mensaje prellenado cambia con el idioma, así que hay un enlace por idioma. */}
+        {contactIntents.flatMap((intent) =>
+          (["es", "en"] as const).map((lang) => (
+            <a
+              key={`${intent.label.es}-${lang}`}
+              data-lang={lang}
+              lang={lang}
+              href={`${socials.whatsapp}?text=${encodeURIComponent(intent.message[lang])}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent"
+            >
+              <WhatsAppIcon />
+              {intent.label[lang]}
+            </a>
+          )),
+        )}
       </div>
     </Section>
   );
 }
 
 export function Footer() {
-  const { t } = useSite();
-
   return (
     <footer className="border-t border-border py-8 text-sm text-muted">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        {/* Componente de servidor: el año sale del build, sin desajuste al hidratar. */}
         <p>
           © {new Date().getFullYear()} {profile.name}
         </p>
-        <p>{t(ui.builtWith)}</p>
+        <p>
+          <Tr value={ui.builtWith} />
+        </p>
       </div>
     </footer>
   );

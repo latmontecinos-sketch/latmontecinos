@@ -1,12 +1,14 @@
 node_modules
 .next
 out
-.env*
-!.env.example
 .vercel
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
 
-.vercel
+# Secretos (incluye .env.local del Vercel CLI)
 .env*
+*.pem
+
+# Configuración local de Claude Code (rutas de esta computadora)
+.claude/launch.json

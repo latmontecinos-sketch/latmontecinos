@@ -1,71 +1,70 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSite } from "@/components/providers";
+import { useState, useSyncExternalStore } from "react";
+import { LANG_KEY } from "@/components/prefs";
+import { setLang, useSite } from "@/components/providers";
 
 const DISMISSED = "lat-lang-hint";
 
+/** Si hay que ofrecer el inglés: no eligió idioma, no cerró el aviso y su navegador no está en español. */
+function shouldOffer(): boolean {
+  try {
+    if (localStorage.getItem(DISMISSED) || localStorage.getItem(LANG_KEY)) return false;
+  } catch {
+    return false; // Storage bloqueado: mejor no insistir con el aviso.
+  }
+  return !navigator.languages?.some((l) => l.toLowerCase().startsWith("es"));
+}
+
+const noopSubscribe = () => () => {};
+
 /**
- * Aviso unico para quien no llega en español.
+ * Aviso único para quien no llega en español: buena parte de quien abre el
+ * sitio viene de programas y bounties en inglés, y si no ve la píldora "EN"
+ * se va sin saber que existe la traducción.
  *
- * El sitio arranca en español, y buena parte de quien lo abre viene de
- * programas y bounties que se manejan en ingles: si no ve la pildora "EN"
- * arriba a la derecha, se va sin saber que existe la traduccion.
+ * Flota abajo en vez de insertarse arriba: aparece después de hidratar, y
+ * arriba empujaba toda la página.
  */
 export function LanguageHint() {
-  const { lang, toggleLang } = useSite();
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (lang !== "es") return;
-    try {
-      if (localStorage.getItem(DISMISSED)) return;
-      if (localStorage.getItem("lat-lang")) return; // ya eligio idioma
-    } catch {
-      // storage bloqueado: mejor no insistir con el aviso
-      return;
-    }
-    const prefersSpanish = navigator.languages?.some((l) =>
-      l.toLowerCase().startsWith("es"),
-    );
-    if (!prefersSpanish) setVisible(true);
-  }, [lang]);
+  const { lang } = useSite();
+  // Se decide una vez en el navegador; en el servidor nunca se muestra.
+  const offer = useSyncExternalStore(noopSubscribe, shouldOffer, () => false);
+  const [dismissed, setDismissed] = useState(false);
 
   const dismiss = () => {
-    setVisible(false);
+    setDismissed(true);
     try {
       localStorage.setItem(DISMISSED, "1");
     } catch {
-      // no persiste, pero ya desaparecio de la vista
+      // No persiste, pero ya desapareció de la vista.
     }
   };
 
-  if (!visible) return null;
+  // Si cambia a inglés por cualquier camino (el aviso o la píldora), el aviso sobra.
+  if (!offer || dismissed || lang !== "es") return null;
 
   return (
-    <div className="border-b border-border bg-surface">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-5 py-2.5 sm:px-8 lg:px-10">
-        <p className="font-mono text-xs text-muted">
-          This site is also available in English.
-        </p>
-        <button
-          type="button"
-          onClick={() => {
-            toggleLang();
-            dismiss();
-          }}
-          className="font-mono text-xs font-semibold text-accent hover:underline"
-        >
-          Switch to English →
-        </button>
-        <button
-          type="button"
-          onClick={dismiss}
-          className="ml-auto font-mono text-xs text-muted hover:text-text"
-        >
-          Dismiss
-        </button>
-      </div>
+    <div
+      role="region"
+      aria-label="Language"
+      lang="en"
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-w-md flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-border bg-surface px-4 py-3 shadow-lg sm:inset-x-auto sm:right-5"
+    >
+      <p className="font-mono text-xs text-muted">This site is also available in English.</p>
+      <button
+        type="button"
+        onClick={() => {
+          setLang("en");
+          dismiss();
+        }}
+        className="font-mono text-xs font-semibold text-accent hover:underline"
+      >
+        Switch to English →
+      </button>
+      <button type="button" onClick={dismiss} className="ml-auto font-mono text-xs text-muted hover:text-text">
+        Dismiss
+      </button>
     </div>
   );
 }
